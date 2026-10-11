@@ -5,6 +5,8 @@ const fs = require("fs");
 const path = require("path");
 
 const app = express();
+app.set("trust proxy", 1);
+
 const PORT = process.env.PORT || 3000;
 const ADMIN_PASSWORD = process.env.ADMIN_PASSWORD || "9393";
 const SESSION_SECRET = process.env.SESSION_SECRET || "change-this-secret-before-launch";
