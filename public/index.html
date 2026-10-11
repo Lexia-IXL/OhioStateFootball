@@ -3,285 +3,266 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<meta name="theme-color" content="#8b0000">
-<title>Buckeye Vault | Ohio State Football</title>
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="theme-color" content="#111111">
+<title>Buckeye Vault — Ohio State Football</title>
 <style>
 :root {
-  --scarlet: #bb0000;
-  --scarlet-dark: #790000;
-  --bg: #101010;
-  --panel: #1a1a1a;
-  --panel2: #222;
-  --text: #f7f7f7;
-  --muted: #aaa;
-  --border: #333;
+  --bg:#101010;
+  --surface:#181818;
+  --surface2:#202020;
+  --line:#303030;
+  --red:#bb0000;
+  --red-light:#e02028;
+  --text:#f7f7f7;
+  --muted:#a3a3a3;
+  --gold:#e5bd65;
 }
-* { box-sizing: border-box; }
-body {
-  margin: 0;
-  background: var(--bg);
-  color: var(--text);
-  font-family: Arial, Helvetica, sans-serif;
+*{box-sizing:border-box}
+body{
+  margin:0;background:var(--bg);color:var(--text);
+  font-family:Inter,Arial,Helvetica,sans-serif;
+  -webkit-font-smoothing:antialiased
 }
-button, input, textarea, select { font: inherit; }
-button { cursor: pointer; }
-header {
-  background: linear-gradient(120deg, #790000, #bd0000);
-  border-bottom: 3px solid #e5b64b;
+button,input,textarea,select{font:inherit}
+button,a{ -webkit-tap-highlight-color:transparent }
+a{color:inherit}
+button{cursor:pointer}
+header{
+  height:72px;background:#111;border-bottom:1px solid #292929;
+  position:sticky;top:0;z-index:20
 }
-.header-inner {
-  max-width: 1200px;
-  margin: auto;
-  padding: 23px 20px;
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  gap: 20px;
-  flex-wrap: wrap;
+.header-inner{
+  height:100%;max-width:1180px;padding:0 24px;margin:auto;
+  display:flex;align-items:center;justify-content:space-between;gap:24px
 }
-.brand {
-  display: flex;
-  align-items: center;
-  gap: 14px;
+.brand{display:flex;align-items:center;gap:11px;text-decoration:none}
+.brand-mark{
+  height:39px;width:39px;border-radius:9px;background:var(--red);
+  display:grid;place-items:center;font-weight:900;font-size:14px;
+  letter-spacing:-1px;box-shadow:0 3px 15px #bb00002a
 }
-.logo {
-  width: 58px;
-  height: 58px;
-  border: 3px solid white;
-  border-radius: 50%;
-  display: grid;
-  place-items: center;
-  font-weight: 900;
-  font-size: 25px;
-  background: white;
-  color: var(--scarlet);
+.brand-name{font-size:17px;font-weight:800;letter-spacing:-.5px}
+.brand-sub{font-size:11px;color:#999;margin-top:4px}
+nav{display:flex;align-items:center;gap:6px}
+.nav-btn{
+  border:0;background:transparent;color:#aaa;padding:10px 13px;
+  border-radius:7px;font-size:13px;font-weight:600
 }
-.brand h1 { margin: 0; font-size: 28px; }
-.brand p { margin: 5px 0 0; color: #ffe1e1; font-size: 13px; }
-nav { display: flex; gap: 8px; flex-wrap: wrap; }
-nav button {
-  border: 1px solid #ffffff50;
-  background: #ffffff12;
-  color: white;
-  padding: 11px 14px;
-  border-radius: 7px;
-  font-weight: bold;
-}
-nav button:hover, nav button.active { background: white; color: var(--scarlet-dark); }
-main { max-width: 1200px; margin: auto; padding: 25px 20px 55px; }
-.hero {
-  min-height: 240px;
-  padding: 36px;
-  border-radius: 14px;
+.nav-btn:hover,.nav-btn.active{color:#fff;background:#292929}
+.nav-btn.signin{background:var(--red);color:white;margin-left:5px}
+.nav-btn.signin:hover{background:#d00000}
+main{max-width:1180px;margin:auto;padding:27px 24px 70px}
+.hero{
+  min-height:365px;border-radius:13px;overflow:hidden;position:relative;
+  display:flex;align-items:center;border:1px solid #333;
   background:
-    linear-gradient(90deg, #240000ed, #8b0000a8),
-    repeating-linear-gradient(45deg, #ffffff08 0 2px, transparent 2px 12px);
-  border: 1px solid #8b2929;
-  display: flex;
-  align-items: center;
-  margin-bottom: 32px;
+    linear-gradient(90deg,rgba(12,12,12,.97) 0%,rgba(15,15,15,.84) 43%,rgba(15,15,15,.2) 100%),
+    linear-gradient(0deg,rgba(10,10,10,.62),transparent 70%),
+    url("https://images.unsplash.com/photo-1508098682722-e99c43a406b2?auto=format&fit=crop&w=1800&q=85") center 48%/cover,
+    #242424;
 }
-.hero h2 { font-size: clamp(30px, 5vw, 50px); margin: 0 0 12px; }
-.hero p { color: #eee; line-height: 1.6; max-width: 600px; }
-.eyebrow {
-  color: #ffd15c;
-  text-transform: uppercase;
-  letter-spacing: 2px;
-  font-size: 12px;
-  font-weight: bold;
+.hero:after{
+  content:"";position:absolute;inset:0;pointer-events:none;
+  background:linear-gradient(120deg,transparent 60%,#bb000018)
 }
-.section-heading {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  gap: 15px;
-  flex-wrap: wrap;
-  margin: 30px 0 17px;
+.hero-content{position:relative;z-index:1;padding:42px;max-width:620px}
+.eyebrow{
+  color:#ff6868;font-size:11px;font-weight:800;letter-spacing:2px;
+  text-transform:uppercase;display:flex;align-items:center;gap:9px
 }
-.section-heading h2 { margin: 0; font-size: 25px; }
-.section-heading p { color: var(--muted); margin: 6px 0 0; }
-.grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(min(100%, 310px), 1fr));
-  gap: 20px;
+.eyebrow:before{content:"";height:2px;width:22px;background:var(--red-light)}
+.hero h1{
+  font-size:clamp(38px,6vw,62px);line-height:1.02;
+  letter-spacing:-2.6px;margin:19px 0 15px;font-weight:900
 }
-.card {
-  min-width: 0;
-  background: var(--panel);
-  border: 1px solid var(--border);
-  border-radius: 12px;
-  overflow: hidden;
+.hero h1 span{color:#ff4545}
+.hero p{font-size:15px;line-height:1.8;color:#c4c4c4;max-width:440px;margin:0 0 24px}
+.actions{display:flex;gap:11px;flex-wrap:wrap}
+.btn{
+  display:inline-flex;justify-content:center;align-items:center;gap:8px;
+  background:var(--red);color:white;border:1px solid var(--red);
+  border-radius:7px;padding:11px 16px;font-size:13px;font-weight:700;
+  text-decoration:none;transition:background .15s,border-color .15s
 }
-.card-body { padding: 18px; }
-.card h3 { margin: 0 0 10px; font-size: 20px; overflow-wrap: anywhere; }
-.card p { color: #ccc; line-height: 1.55; overflow-wrap: anywhere; }
-.meta { color: var(--muted); font-size: 13px; margin-bottom: 13px; }
-.tag {
-  display: inline-block;
-  background: #4b0000;
-  border: 1px solid #8d3030;
-  border-radius: 5px;
-  padding: 5px 8px;
-  color: #ffdada;
-  font-size: 12px;
-  margin: 0 5px 8px 0;
+.btn:hover{background:#d40000;border-color:#d40000}
+.btn.secondary{background:#202020;border-color:#444;color:#eee}
+.btn.secondary:hover{background:#303030}
+.btn.danger{background:#581c1c;border-color:#713030}
+.btn.small{padding:8px 10px;font-size:12px}
+.stats{
+  display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin:18px 0 34px
 }
-.video-player {
-  position: relative;
-  width: 100%;
-  aspect-ratio: 16 / 9;
-  background: #000;
-  overflow: hidden;
+.stat{
+  background:#171717;border:1px solid #292929;border-radius:9px;
+  padding:17px 20px;display:flex;align-items:center;gap:13px
 }
-.video-player iframe, .video-player video {
-  position: absolute;
-  inset: 0;
-  width: 100%;
-  height: 100%;
-  border: 0;
+.stat-icon{
+  width:39px;height:39px;display:grid;place-items:center;
+  background:#360d0d;color:#ff7070;border-radius:8px;font-size:19px
 }
-.video-placeholder {
-  width: 100%;
-  aspect-ratio: 16 / 9;
-  display: grid;
-  place-items: center;
-  text-align: center;
-  padding: 20px;
-  background: linear-gradient(135deg, #300000, #151515);
-  color: white;
+.stat strong{font-size:21px;display:block}
+.stat span{font-size:12px;color:#999;display:block;margin-top:4px}
+.section{margin-top:35px}
+.section-head{
+  display:flex;align-items:center;justify-content:space-between;
+  gap:15px;flex-wrap:wrap;margin-bottom:17px
 }
-.play-icon { font-size: 43px; color: #ffcbcb; }
-.btn {
-  display: inline-block;
-  padding: 11px 15px;
-  border: 0;
-  border-radius: 7px;
-  background: var(--scarlet);
-  color: white;
-  font-weight: bold;
-  text-decoration: none;
+.section-title{font-size:22px;letter-spacing:-.6px;margin:0;font-weight:800}
+.section-subtitle{font-size:12px;color:#929292;margin:6px 0 0}
+.text-link{
+  border:0;background:transparent;color:#ff6262;font-size:13px;
+  font-weight:700;padding:8px 0
 }
-.btn:hover { background: #e00000; }
-.btn.secondary { background: #333; border: 1px solid #555; }
-.btn.danger { background: #742222; }
-.btn.small { padding: 8px 10px; font-size: 13px; }
-.searchbar {
-  width: 100%;
-  max-width: 390px;
-  padding: 12px;
-  background: #191919;
-  color: white;
-  border: 1px solid #444;
-  border-radius: 7px;
+.text-link:hover{color:#ff9393}
+.grid{
+  display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:17px
 }
-.empty {
-  padding: 35px 20px;
-  text-align: center;
-  color: var(--muted);
-  background: var(--panel);
-  border: 1px dashed #444;
-  border-radius: 10px;
-  grid-column: 1 / -1;
+.card{
+  min-width:0;background:var(--surface);border:1px solid var(--line);
+  border-radius:10px;overflow:hidden;transition:border-color .18s,transform .18s
 }
-.panel {
-  background: var(--panel);
-  border: 1px solid var(--border);
-  border-radius: 12px;
-  padding: 22px;
-  margin-bottom: 20px;
+.card:hover{border-color:#555;transform:translateY(-2px)}
+.video-wrap{
+  position:relative;width:100%;aspect-ratio:16/9;background:#080808;
+  overflow:hidden;border-bottom:1px solid #292929
 }
-.panel h2, .panel h3 { margin-top: 0; }
-.form-grid {
-  display: grid;
-  grid-template-columns: repeat(2, minmax(0, 1fr));
-  gap: 14px;
+.video-wrap iframe,.video-wrap video{
+  position:absolute;inset:0;width:100%;height:100%;border:0;display:block
 }
-.field { display: flex; flex-direction: column; gap: 7px; min-width: 0; }
-.field.full { grid-column: 1 / -1; }
-.field label { font-size: 13px; color: #ddd; font-weight: bold; }
-.field input, .field textarea, .field select {
-  width: 100%;
-  padding: 12px;
-  border: 1px solid #444;
-  background: #101010;
-  color: white;
-  border-radius: 7px;
+.video-empty{
+  position:absolute;inset:0;display:flex;flex-direction:column;
+  align-items:center;justify-content:center;gap:10px;
+  background:radial-gradient(ellipse at 50% 100%,#470808,#111 72%);
+  color:#aaa;font-size:12px;text-align:center;padding:15px
 }
-.field textarea { min-height: 85px; resize: vertical; }
-.form-actions { display: flex; gap: 10px; flex-wrap: wrap; margin-top: 16px; }
-.notice {
-  padding: 12px;
-  border-radius: 7px;
-  margin: 12px 0;
-  background: #222;
-  border: 1px solid #444;
-  color: #ddd;
-  overflow-wrap: anywhere;
+.play{
+  width:47px;height:47px;border:1px solid #ffffff38;background:#bb0000;
+  color:white;border-radius:50%;display:grid;place-items:center;
+  font-size:17px;padding-left:3px;box-shadow:0 4px 22px #0007
 }
-.notice.error { border-color: #a33; color: #ffbaba; }
-.notice.success { border-color: #387e45; color: #b6f5c2; }
-.admin-list { display: flex; flex-direction: column; gap: 10px; }
-.admin-item {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  gap: 15px;
-  flex-wrap: wrap;
-  background: #111;
-  padding: 13px;
-  border-radius: 8px;
-  border: 1px solid #333;
+.card-body{padding:15px 16px 17px}
+.card-top{display:flex;justify-content:space-between;gap:8px;align-items:center;margin-bottom:10px}
+.tag{
+  display:inline-flex;align-items:center;background:#341010;
+  border:1px solid #592020;color:#ff8888;border-radius:4px;
+  padding:4px 7px;font-size:10px;font-weight:800;text-transform:uppercase;
+  letter-spacing:.5px
 }
-.admin-item strong { overflow-wrap: anywhere; }
-footer {
-  padding: 25px 20px;
-  text-align: center;
-  color: #999;
-  border-top: 1px solid #292929;
-  font-size: 13px;
+.card-date{font-size:11px;color:#888}
+.card h3{font-size:16px;line-height:1.4;margin:0 0 7px;overflow-wrap:anywhere}
+.card-desc{
+  color:#999;font-size:12px;line-height:1.65;margin:0;
+  display:-webkit-box;-webkit-line-clamp:3;-webkit-box-orient:vertical;overflow:hidden
 }
-.hidden { display: none !important; }
-.loading { text-align: center; padding: 45px 15px; color: #bbb; }
-@media (max-width: 600px) {
-  .header-inner { padding: 18px 14px; }
-  .brand h1 { font-size: 22px; }
-  .logo { width: 47px; height: 47px; font-size: 20px; }
-  nav { width: 100%; }
-  nav button { flex: 1; padding: 10px 7px; font-size: 12px; }
-  main { padding: 18px 13px 35px; }
-  .hero { padding: 24px 19px; min-height: 200px; }
-  .form-grid { grid-template-columns: 1fr; }
-  .field.full { grid-column: auto; }
+.card-footer{display:flex;justify-content:space-between;align-items:center;gap:8px;margin-top:14px}
+.card-footer .opponent{font-size:11px;color:#b6b6b6}
+.search{
+  width:100%;max-width:300px;background:#181818;border:1px solid #353535;
+  border-radius:7px;padding:11px 13px;color:white;outline:none;font-size:13px
+}
+.search:focus,.field input:focus,.field textarea:focus{border-color:#9d3434}
+.empty{
+  grid-column:1/-1;padding:45px 20px;text-align:center;
+  border:1px dashed #373737;border-radius:9px;background:#151515
+}
+.empty-icon{font-size:27px;margin-bottom:10px}
+.empty h3{font-size:16px;margin:0 0 8px}
+.empty p{font-size:12px;color:#999;margin:0;line-height:1.7}
+.page-heading{padding:18px 0 27px}
+.page-heading h1{font-size:32px;letter-spacing:-1px;margin:0 0 8px}
+.page-heading p{font-size:13px;color:#999;margin:0}
+.admin-panel{
+  background:#171717;border:1px solid #303030;border-radius:10px;
+  padding:22px;margin-bottom:17px
+}
+.admin-panel h2{font-size:17px;margin:0 0 7px}
+.admin-panel>p{font-size:12px;color:#999;line-height:1.6}
+.form-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:15px}
+.field{display:flex;flex-direction:column;gap:7px;min-width:0}
+.field.full{grid-column:1/-1}
+.field label{font-size:12px;font-weight:700;color:#ccc}
+.field input,.field textarea,.field select{
+  background:#101010;border:1px solid #383838;border-radius:6px;
+  color:white;padding:11px 12px;width:100%;min-width:0;font-size:13px
+}
+.field textarea{min-height:80px;resize:vertical}
+.form-actions{display:flex;gap:9px;flex-wrap:wrap;margin-top:16px}
+.admin-list{display:grid;gap:8px;margin-top:14px}
+.admin-item{
+  background:#101010;border:1px solid #303030;border-radius:7px;
+  padding:12px;display:flex;justify-content:space-between;
+  align-items:center;gap:12px;flex-wrap:wrap
+}
+.admin-item strong{font-size:13px}
+.admin-item small{display:block;color:#888;margin-top:5px}
+.notice{padding:12px 14px;margin:0 0 16px;border:1px solid #444;border-radius:7px;background:#191919;font-size:13px;overflow-wrap:anywhere}
+.notice.error{border-color:#8a3333;color:#ffaaaa}
+.notice.success{border-color:#347647;color:#b6f3c4}
+.login-box{max-width:410px;margin:45px auto}
+.login-box .admin-panel{padding:26px}
+footer{border-top:1px solid #292929;padding:27px 20px;text-align:center;color:#777;font-size:11px;line-height:1.8}
+footer strong{color:#aaa}
+.hidden{display:none!important}
+.loading{padding:50px;text-align:center;color:#999}
+@media(max-width:850px){
+  .grid{grid-template-columns:repeat(2,minmax(0,1fr))}
+  .hero{min-height:330px}
+}
+@media(max-width:580px){
+  header{height:auto;position:relative}
+  .header-inner{padding:13px 15px;flex-wrap:wrap;gap:13px}
+  .brand-mark{width:35px;height:35px}
+  .brand-name{font-size:15px}
+  nav{width:100%;gap:3px}
+  .nav-btn{flex:1;padding:10px 5px;font-size:11px}
+  main{padding:17px 14px 45px}
+  .hero{min-height:360px;background-position:58% center}
+  .hero-content{padding:25px 20px}
+  .hero h1{font-size:43px;letter-spacing:-1.8px}
+  .hero p{font-size:13px}
+  .stats{gap:7px;margin:12px 0 28px}
+  .stat{padding:12px 9px;gap:7px;display:block}
+  .stat-icon{width:31px;height:31px;margin-bottom:8px}
+  .stat strong{font-size:18px}
+  .stat span{font-size:10px}
+  .grid{grid-template-columns:1fr;gap:13px}
+  .section{margin-top:29px}
+  .section-title{font-size:20px}
+  .search{max-width:none}
+  .form-grid{grid-template-columns:1fr}
+  .field.full{grid-column:auto}
+  .admin-panel{padding:16px}
 }
 </style>
 </head>
 <body>
 <header>
   <div class="header-inner">
-    <div class="brand">
-      <div class="logo">OSU</div>
+    <a href="#" class="brand" data-go="home" aria-label="Buckeye Vault home">
+      <div class="brand-mark">O-H!</div>
       <div>
-        <h1>BUCKEYE VAULT</h1>
-        <p>Ohio State Football • Games • Highlights</p>
+        <div class="brand-name">Buckeye Vault</div>
+        <div class="brand-sub">Ohio State Football</div>
       </div>
-    </div>
-    <nav aria-label="Main navigation">
-      <button class="active" data-page="home">Home</button>
-      <button data-page="games">Games</button>
-      <button data-page="highlights">Highlights</button>
-      <button data-page="admin">Admin</button>
+    </a>
+    <nav>
+      <button class="nav-btn active" data-page="home">Home</button>
+      <button class="nav-btn" data-page="games">Games</button>
+      <button class="nav-btn" data-page="highlights">Highlights</button>
+      <button class="nav-btn signin" data-page="admin">Sign in</button>
     </nav>
   </div>
 </header>
 
 <main>
-  <div id="status" role="status" aria-live="polite"></div>
+  <div id="status" aria-live="polite"></div>
   <div id="app"><div class="loading">Loading Buckeye Vault…</div></div>
 </main>
 
 <footer>
-  Buckeye Vault • An independent fan project. Not affiliated with or endorsed by The Ohio State University.
+  <strong>Buckeye Vault</strong> · Unofficial fan site · O-H!<br>
+  Not affiliated with or endorsed by The Ohio State University.
 </footer>
 
 <script>
@@ -290,65 +271,56 @@ footer {
 const app = document.getElementById("app");
 const statusBox = document.getElementById("status");
 
-let content = { games: [], highlights: [] };
+let content = {games:[], highlights:[]};
 let isAdmin = false;
 let currentPage = "home";
 let searchTerm = "";
 let loading = true;
 
-function escapeHTML(value) {
-  return String(value ?? "").replace(/[&<>"']/g, char => ({
-    "&": "&amp;",
-    "<": "&lt;",
-    ">": "&gt;",
-    '"': "&quot;",
-    "'": "&#39;"
-  })[char]);
+function esc(value) {
+  return String(value ?? "").replace(/[&<>"']/g, c => ({
+    "&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"
+  })[c]);
 }
 
-function showStatus(message, type = "") {
+function notify(message, type="") {
   statusBox.innerHTML = message
-    ? `<div class="notice ${type}">${escapeHTML(message)}</div>`
-    : "";
+    ? `<div class="notice ${type}">${esc(message)}</div>` : "";
 }
 
-async function api(path, options = {}) {
+async function api(path, options={}) {
   const response = await fetch(path, {
-    credentials: "same-origin",
+    credentials:"same-origin",
     ...options,
-    headers: {
-      ...(options.body ? { "Content-Type": "application/json" } : {}),
+    headers:{
+      ...(options.body ? {"Content-Type":"application/json"} : {}),
       ...(options.headers || {})
     }
   });
 
-  const text = await response.text();
+  const raw = await response.text();
   let data = {};
-
-  try {
-    data = text ? JSON.parse(text) : {};
-  } catch {
-    data = { message: text };
-  }
+  try { data = raw ? JSON.parse(raw) : {}; }
+  catch { data = {message:raw}; }
 
   if (!response.ok) {
     throw new Error(data.error || data.message || `Request failed (${response.status})`);
   }
-
   return data;
 }
 
 async function loadContent() {
   loading = true;
+  render();
 
   try {
     const data = await api("/api/content");
     content = {
-      games: Array.isArray(data.games) ? data.games : [],
-      highlights: Array.isArray(data.highlights) ? data.highlights : []
+      games:Array.isArray(data.games) ? data.games : [],
+      highlights:Array.isArray(data.highlights) ? data.highlights : []
     };
-  } catch (error) {
-    showStatus("Couldn't load the saved content: " + error.message, "error");
+  } catch(error) {
+    notify("Couldn't load saved content: " + error.message, "error");
   }
 
   try {
@@ -363,555 +335,407 @@ async function loadContent() {
 }
 
 async function saveContent() {
-  showStatus("Saving changes…");
+  notify("Saving changes…");
 
   try {
     const data = await api("/api/content", {
-      method: "PUT",
-      body: JSON.stringify(content)
+      method:"PUT",
+      body:JSON.stringify(content)
     });
 
     if (Array.isArray(data.games)) content.games = data.games;
     if (Array.isArray(data.highlights)) content.highlights = data.highlights;
 
-    showStatus("Changes saved successfully!", "success");
+    notify("Changes saved successfully.", "success");
     render();
-  } catch (error) {
-    showStatus("Couldn't save changes: " + error.message, "error");
+  } catch(error) {
+    notify("Couldn't save changes: " + error.message, "error");
   }
 }
 
-/*
-  Supported playback:
-  - YouTube watch links, youtu.be links, Shorts and embed links
-  - Vimeo links
-  - Direct HTTPS MP4, WebM and Ogg video files
-
-  YouTube/Vimeo links are converted to embed URLs instead of ordinary links.
-*/
-function getVideoInfo(rawURL) {
-  if (!rawURL || typeof rawURL !== "string") return null;
+function videoInfo(raw) {
+  if (typeof raw !== "string" || !raw.trim()) return null;
 
   try {
-    const url = new URL(rawURL.trim());
+    const u = new URL(raw.trim());
+    if (u.protocol !== "https:") return null;
 
-    if (url.protocol !== "https:") return null;
-
-    const host = url.hostname.toLowerCase();
-    const path = url.pathname;
+    const host = u.hostname.toLowerCase();
+    const path = u.pathname;
     let id = "";
 
-    if (["youtube.com", "www.youtube.com", "m.youtube.com",
-         "youtube-nocookie.com", "www.youtube-nocookie.com"].includes(host)) {
-      id = url.searchParams.get("v") ||
+    if (["youtube.com","www.youtube.com","m.youtube.com",
+         "youtube-nocookie.com","www.youtube-nocookie.com"].includes(host)) {
+      id = u.searchParams.get("v") ||
         path.match(/^\/(?:embed|shorts|live)\/([^/?]+)/)?.[1] || "";
 
-      if (!/^[a-zA-Z0-9_-]{11}$/.test(id)) return null;
-
-      return {
-        type: "iframe",
-        src: "https://www.youtube-nocookie.com/embed/" + id
-      };
+      return /^[\w-]{11}$/.test(id)
+        ? {type:"embed",src:"https://www.youtube-nocookie.com/embed/"+id}
+        : null;
     }
 
     if (host === "youtu.be" || host === "www.youtu.be") {
       id = path.split("/").filter(Boolean)[0] || "";
-
-      if (!/^[a-zA-Z0-9_-]{11}$/.test(id)) return null;
-
-      return {
-        type: "iframe",
-        src: "https://www.youtube-nocookie.com/embed/" + id
-      };
+      return /^[\w-]{11}$/.test(id)
+        ? {type:"embed",src:"https://www.youtube-nocookie.com/embed/"+id}
+        : null;
     }
 
-    if (["vimeo.com", "www.vimeo.com", "player.vimeo.com"].includes(host)) {
+    if (["vimeo.com","www.vimeo.com","player.vimeo.com"].includes(host)) {
       const match = path.match(/\/(?:video\/)?(\d+)/);
-
-      if (!match) return null;
-
-      return {
-        type: "iframe",
-        src: "https://player.vimeo.com/video/" + match[1]
-      };
+      return match ? {type:"embed",src:"https://player.vimeo.com/video/"+match[1]} : null;
     }
 
     if (/\.(mp4|webm|ogg)$/i.test(path)) {
-      return { type: "video", src: url.href };
+      return {type:"file",src:u.href};
     }
 
-    return { type: "external", src: url.href };
+    return {type:"external",src:u.href};
   } catch {
     return null;
   }
 }
 
-function videoPlayer(rawURL, title) {
-  const info = getVideoInfo(rawURL);
+function player(raw, title) {
+  const v = videoInfo(raw);
 
-  if (!info) {
-    return `
-      <div class="video-placeholder">
-        <div>
-          <div class="play-icon">▶</div>
-          <p>No playable video added yet.</p>
-        </div>
-      </div>`;
+  if (!v) {
+    return `<div class="video-wrap"><div class="video-empty">
+      <div class="play">▶</div><span>Video coming soon</span>
+    </div></div>`;
   }
 
-  if (info.type === "iframe") {
-    return `
-      <div class="video-player">
-        <iframe
-          src="${escapeHTML(info.src)}"
-          title="${escapeHTML(title || "Ohio State football video")}"
-          loading="lazy"
-          allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture; web-share"
-          referrerpolicy="strict-origin-when-cross-origin"
-          allowfullscreen>
-        </iframe>
-      </div>`;
-  }
-
-  if (info.type === "video") {
-    return `
-      <div class="video-player">
-        <video controls preload="metadata" playsinline>
-          <source src="${escapeHTML(info.src)}">
-          Your browser does not support HTML video.
-        </video>
-      </div>`;
-  }
-
-  return `
-    <div class="video-placeholder">
-      <div>
-        <div class="play-icon">▶</div>
-        <p>This link cannot be embedded automatically.</p>
-        <a class="btn" href="${escapeHTML(info.src)}"
-           target="_blank" rel="noopener noreferrer">Open video source</a>
-      </div>
+  if (v.type === "embed") {
+    return `<div class="video-wrap">
+      <iframe src="${esc(v.src)}" title="${esc(title)}"
+        loading="lazy" allow="accelerometer; encrypted-media; gyroscope;
+        picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin"
+        allowfullscreen></iframe>
     </div>`;
+  }
+
+  if (v.type === "file") {
+    return `<div class="video-wrap">
+      <video controls playsinline preload="metadata">
+        <source src="${esc(v.src)}">
+        Your browser does not support this video.
+      </video>
+    </div>`;
+  }
+
+  return `<div class="video-wrap"><div class="video-empty">
+    <div class="play">↗</div><span>This source does not support embedded playback.</span>
+    <a class="btn small" href="${esc(v.src)}" target="_blank" rel="noopener noreferrer">Open source</a>
+  </div></div>`;
 }
 
-function getTitle(item, fallback) {
+function titleOf(item, fallback="Ohio State Football") {
   return item.title || item.name || item.opponent || fallback;
 }
 
-function getVideoURL(item) {
+function urlOf(item) {
   return item.videoUrl || item.videoURL || item.video || item.url || "";
 }
 
-function formatDate(value) {
+function dateOf(value) {
   if (!value) return "";
-  const date = new Date(value + (String(value).length === 10 ? "T12:00:00" : ""));
-  if (Number.isNaN(date.getTime())) return String(value);
-  return date.toLocaleDateString(undefined, {
-    year: "numeric", month: "short", day: "numeric"
-  });
+  const d = new Date(String(value).length === 10 ? value+"T12:00:00" : value);
+  return Number.isNaN(d.getTime()) ? String(value) :
+    d.toLocaleDateString(undefined,{month:"short",day:"numeric",year:"numeric"});
 }
 
-function gameCard(game, index) {
-  const title = getTitle(game, "Ohio State Game");
-  const opponent = game.opponent || "";
-  const date = formatDate(game.date);
-  const score = game.score || "";
-  const description = game.description || game.summary || "";
-
-  return `
-    <article class="card">
-      ${videoPlayer(getVideoURL(game), title)}
-      <div class="card-body">
-        <span class="tag">FOOTBALL GAME</span>
-        ${game.season ? `<span class="tag">${escapeHTML(game.season)}</span>` : ""}
-        <h3>${escapeHTML(title)}</h3>
-        <div class="meta">
-          ${date ? escapeHTML(date) : ""}
-          ${date && opponent ? " • " : ""}
-          ${opponent ? "vs. " + escapeHTML(opponent) : ""}
-        </div>
-        ${score ? `<p><strong>Score:</strong> ${escapeHTML(score)}</p>` : ""}
-        ${description ? `<p>${escapeHTML(description)}</p>` : ""}
-        ${isAdmin ? `<button class="btn danger small" data-delete="game" data-index="${index}">Remove game</button>` : ""}
-      </div>
-    </article>`;
-}
-
-function highlightCard(highlight, index) {
-  const title = getTitle(highlight, "Ohio State Highlight");
-  const description = highlight.description || highlight.summary || "";
-  const date = formatDate(highlight.date);
-
-  return `
-    <article class="card">
-      ${videoPlayer(getVideoURL(highlight), title)}
-      <div class="card-body">
-        <span class="tag">HIGHLIGHT</span>
-        <h3>${escapeHTML(title)}</h3>
-        ${date ? `<div class="meta">${escapeHTML(date)}</div>` : ""}
-        ${description ? `<p>${escapeHTML(description)}</p>` : ""}
-        ${isAdmin ? `<button class="btn danger small" data-delete="highlight" data-index="${index}">Remove highlight</button>` : ""}
-      </div>
-    </article>`;
-}
-
-function filterItems(items) {
+function filter(items) {
   if (!searchTerm) return items;
-
-  return items.filter(item => {
-    const searchable = [
-      item.title, item.name, item.opponent, item.description,
-      item.summary, item.season, item.date, item.score
-    ].join(" ").toLowerCase();
-
-    return searchable.includes(searchTerm.toLowerCase());
-  });
+  return items.filter(x => [
+    x.title,x.name,x.opponent,x.description,x.summary,x.season,x.date,x.score
+  ].join(" ").toLowerCase().includes(searchTerm.toLowerCase()));
 }
 
-function renderHome() {
-  const games = filterItems(content.games);
-  const highlights = filterItems(content.highlights);
+function emptyState(title, message) {
+  return `<div class="empty"><div class="empty-icon">🏈</div>
+    <h3>${esc(title)}</h3><p>${esc(message)}</p></div>`;
+}
 
-  return `
-    <section class="hero">
-      <div>
-        <div class="eyebrow">The home of Buckeye football</div>
-        <h2>OHIO STATE.<br>ALL THE ACTION.</h2>
-        <p>Explore Buckeye games and relive the biggest moments. Watch available videos right here on Buckeye Vault.</p>
-        <button class="btn" data-go="games">Explore Games</button>
-        <button class="btn secondary" data-go="highlights">Watch Highlights</button>
+function card(item, type, index) {
+  const title = titleOf(item);
+  const date = dateOf(item.date);
+  const description = item.description || item.summary || "";
+  const tag = type === "game" ? "Full Game" : "Highlight";
+
+  return `<article class="card">
+    ${player(urlOf(item),title)}
+    <div class="card-body">
+      <div class="card-top">
+        <span class="tag">${tag}</span>
+        <span class="card-date">${esc(date)}</span>
       </div>
-    </section>
-
-    <div class="section-heading">
-      <div><h2>Latest Games</h2><p>Games from the Buckeye Vault collection</p></div>
-      <button class="btn secondary" data-go="games">View all games →</button>
+      <h3>${esc(title)}</h3>
+      ${type === "game" && item.opponent
+        ? `<p class="card-desc">Opponent: ${esc(item.opponent)}</p>` : ""}
+      ${type === "game" && item.score
+        ? `<p class="card-desc">Score: ${esc(item.score)}</p>` : ""}
+      ${description ? `<p class="card-desc" style="margin-top:8px">${esc(description)}</p>` : ""}
+      ${type === "game" && item.season
+        ? `<div class="card-footer"><span class="opponent">Season ${esc(item.season)}</span></div>` : ""}
+      ${isAdmin ? `<div class="card-footer">
+        <button class="btn danger small" data-delete="${type}" data-index="${index}">Remove</button>
+      </div>` : ""}
     </div>
-    <div class="grid">
-      ${games.length
-        ? games.slice(0, 3).map(gameCard).join("")
-        : `<div class="empty">No games have been added yet.</div>`}
-    </div>
-
-    <div class="section-heading">
-      <div><h2>Featured Highlights</h2><p>Big plays and unforgettable moments</p></div>
-      <button class="btn secondary" data-go="highlights">View all highlights →</button>
-    </div>
-    <div class="grid">
-      ${highlights.length
-        ? highlights.slice(0, 3).map(highlightCard).join("")
-        : `<div class="empty">No highlights have been added yet.</div>`}
-    </div>`;
+  </article>`;
 }
 
-function renderGames() {
-  const games = filterItems(content.games);
+function homePage() {
+  const games = filter(content.games);
+  const highlights = filter(content.highlights);
 
-  return `
-    <div class="section-heading">
-      <div><h2>Ohio State Games</h2><p>Browse games and watch available footage.</p></div>
-      <input class="searchbar" id="search" placeholder="Search games…" value="${escapeHTML(searchTerm)}">
+  return `<section class="hero">
+    <div class="hero-content">
+      <div class="eyebrow">The Buckeye football collection</div>
+      <h1>Every Buckeye game.<br>Every <span>big play.</span></h1>
+      <p>Your home for Ohio State football games and unforgettable highlights. Find a game, pick a play, and watch right here in Buckeye Vault.</p>
+      <div class="actions">
+        <button class="btn" data-go="games">▶ &nbsp; Browse games</button>
+        <button class="btn secondary" data-go="highlights">Explore highlights →</button>
+      </div>
     </div>
-    <div class="grid">
-      ${games.length
-        ? games.map(game => gameCard(game, content.games.indexOf(game))).join("")
-        : `<div class="empty">No matching games found.</div>`}
-    </div>`;
+  </section>
+
+  <div class="stats">
+    <div class="stat"><div class="stat-icon">🏈</div><div>
+      <strong>${content.games.length}</strong><span>Games in the vault</span>
+    </div></div>
+    <div class="stat"><div class="stat-icon">▶</div><div>
+      <strong>${content.highlights.length}</strong><span>Highlights saved</span>
+    </div></div>
+    <div class="stat"><div class="stat-icon">O</div><div>
+      <strong>Go Bucks</strong><span>Scarlet and gray, always</span>
+    </div></div>
+  </div>
+
+  <section class="section">
+    <div class="section-head">
+      <div><h2 class="section-title">Games</h2><p class="section-subtitle">Relive the matchups.</p></div>
+      <button class="text-link" data-go="games">Browse all games →</button>
+    </div>
+    <div class="grid">${games.length
+      ? games.slice(0,3).map(x=>card(x,"game",content.games.indexOf(x))).join("")
+      : emptyState("No games yet","Sign in as admin to add the first one.")}</div>
+  </section>
+
+  <section class="section">
+    <div class="section-head">
+      <div><h2 class="section-title">Highlights</h2><p class="section-subtitle">The plays worth watching again.</p></div>
+      <button class="text-link" data-go="highlights">Browse all highlights →</button>
+    </div>
+    <div class="grid">${highlights.length
+      ? highlights.slice(0,3).map(x=>card(x,"highlight",content.highlights.indexOf(x))).join("")
+      : emptyState("No highlights yet","Add your favorite plays from the admin page.")}</div>
+  </section>`;
 }
 
-function renderHighlights() {
-  const highlights = filterItems(content.highlights);
+function listPage(type) {
+  const isGame = type === "game";
+  const items = isGame ? filter(content.games) : filter(content.highlights);
+  const heading = isGame ? "Games" : "Highlights";
+  const subtitle = isGame
+    ? "Browse the Ohio State football game collection."
+    : "Watch the biggest plays and favorite moments.";
 
-  return `
-    <div class="section-heading">
-      <div><h2>Football Highlights</h2><p>Watch the best Buckeye moments.</p></div>
-      <input class="searchbar" id="search" placeholder="Search highlights…" value="${escapeHTML(searchTerm)}">
-    </div>
-    <div class="grid">
-      ${highlights.length
-        ? highlights.map(item => highlightCard(item, content.highlights.indexOf(item))).join("")
-        : `<div class="empty">No matching highlights found.</div>`}
-    </div>`;
+  return `<div class="page-heading">
+    <h1>${heading}</h1><p>${subtitle}</p>
+  </div>
+  <div class="section-head">
+    <span class="section-subtitle">${items.length} item${items.length===1?"":"s"}</span>
+    <input class="search" id="search" placeholder="Search ${heading.toLowerCase()}…" value="${esc(searchTerm)}">
+  </div>
+  <div class="grid">${items.length
+    ? items.map(x=>card(x,type,isGame?content.games.indexOf(x):content.highlights.indexOf(x))).join("")
+    : emptyState("Nothing here yet",isGame?"No games match your search.":"No highlights match your search.")}</div>`;
 }
 
-function renderAdmin() {
+function adminPage() {
   if (!isAdmin) {
-    return `
-      <section class="panel" style="max-width:480px;margin:30px auto">
-        <h2>Admin Login</h2>
-        <p>Sign in to manage games and highlights.</p>
-        <form id="login-form">
-          <div class="field">
-            <label for="admin-password">Admin password</label>
-            <input id="admin-password" type="password" autocomplete="current-password" required>
-          </div>
-          <div class="form-actions">
-            <button class="btn" type="submit">Sign In</button>
-          </div>
-          <div id="login-error" role="alert"></div>
-        </form>
-      </section>`;
+    return `<div class="login-box"><section class="admin-panel">
+      <div class="eyebrow">Restricted area</div>
+      <h2 style="font-size:24px;margin-top:13px">Admin sign in</h2>
+      <p>Sign in to manage games and highlights in Buckeye Vault.</p>
+      <form id="login-form">
+        <div class="field"><label for="password">Admin password</label>
+          <input id="password" type="password" required autocomplete="current-password" placeholder="Enter password">
+        </div>
+        <div class="form-actions"><button class="btn" type="submit">Sign in →</button></div>
+        <div id="login-error"></div>
+      </form>
+    </section></div>`;
   }
 
-  return `
-    <div class="section-heading">
-      <div><h2>Admin Dashboard</h2><p>Add games, add highlights, and manage your collection.</p></div>
-      <button class="btn secondary" id="logout-button">Log Out</button>
-    </div>
+  return `<div class="page-heading"><h1>Admin dashboard</h1>
+    <p>Add videos, manage games, and maintain your collection.</p></div>
 
-    <section class="panel">
-      <h3>Add a Game</h3>
-      <form id="game-form">
-        <div class="form-grid">
-          <div class="field">
-            <label for="game-title">Game title *</label>
-            <input id="game-title" required placeholder="Ohio State vs. Michigan">
-          </div>
-          <div class="field">
-            <label for="game-opponent">Opponent</label>
-            <input id="game-opponent" placeholder="Michigan">
-          </div>
-          <div class="field">
-            <label for="game-date">Game date</label>
-            <input id="game-date" type="date">
-          </div>
-          <div class="field">
-            <label for="game-season">Season</label>
-            <input id="game-season" placeholder="2026">
-          </div>
-          <div class="field">
-            <label for="game-score">Final score</label>
-            <input id="game-score" placeholder="Ohio State 31 - 20 Michigan">
-          </div>
-          <div class="field">
-            <label for="game-video">Video URL</label>
-            <input id="game-video" type="url" placeholder="https://www.youtube.com/watch?v=..." >
-          </div>
-          <div class="field full">
-            <label for="game-description">Description</label>
-            <textarea id="game-description" placeholder="Game recap or notes…"></textarea>
-          </div>
-        </div>
-        <div class="form-actions"><button class="btn" type="submit">Add Game</button></div>
-      </form>
+    <section class="admin-panel"><h2>Add a game</h2>
+      <p>Paste a YouTube or Vimeo link to embed a player. Direct MP4 links are supported too.</p>
+      <form id="game-form"><div class="form-grid">
+        <div class="field"><label for="gt">Game title *</label><input id="gt" required placeholder="Ohio State vs. Michigan"></div>
+        <div class="field"><label for="go">Opponent</label><input id="go" placeholder="Michigan"></div>
+        <div class="field"><label for="gd">Game date</label><input id="gd" type="date"></div>
+        <div class="field"><label for="gs">Season</label><input id="gs" placeholder="2026"></div>
+        <div class="field"><label for="gscore">Score</label><input id="gscore" placeholder="31–20"></div>
+        <div class="field"><label for="gv">Video URL</label><input id="gv" type="url" placeholder="https://www.youtube.com/watch?v=..."></div>
+        <div class="field full"><label for="gdesc">Description</label><textarea id="gdesc" placeholder="Game recap or notes…"></textarea></div>
+      </div><div class="form-actions"><button class="btn" type="submit">＋ Add game</button></div></form>
     </section>
 
-    <section class="panel">
-      <h3>Add a Highlight</h3>
-      <form id="highlight-form">
-        <div class="form-grid">
-          <div class="field">
-            <label for="highlight-title">Highlight title *</label>
-            <input id="highlight-title" required placeholder="Amazing touchdown">
-          </div>
-          <div class="field">
-            <label for="highlight-date">Date</label>
-            <input id="highlight-date" type="date">
-          </div>
-          <div class="field full">
-            <label for="highlight-video">Video URL *</label>
-            <input id="highlight-video" type="url" required placeholder="https://www.youtube.com/watch?v=...">
-          </div>
-          <div class="field full">
-            <label for="highlight-description">Description</label>
-            <textarea id="highlight-description" placeholder="Describe the play…"></textarea>
-          </div>
-        </div>
-        <div class="form-actions"><button class="btn" type="submit">Add Highlight</button></div>
-      </form>
+    <section class="admin-panel"><h2>Add a highlight</h2>
+      <form id="highlight-form"><div class="form-grid">
+        <div class="field"><label for="ht">Highlight title *</label><input id="ht" required placeholder="Game-winning touchdown"></div>
+        <div class="field"><label for="hd">Date</label><input id="hd" type="date"></div>
+        <div class="field full"><label for="hv">Video URL *</label><input id="hv" type="url" required placeholder="https://www.youtube.com/watch?v=..."></div>
+        <div class="field full"><label for="hdesc">Description</label><textarea id="hdesc" placeholder="Describe the play…"></textarea></div>
+      </div><div class="form-actions"><button class="btn" type="submit">＋ Add highlight</button></div></form>
     </section>
 
-    <section class="panel">
-      <h3>Manage Games (${content.games.length})</h3>
-      <div class="admin-list">
-        ${content.games.length ? content.games.map((game, index) => `
-          <div class="admin-item">
-            <div><strong>${escapeHTML(getTitle(game, "Ohio State Game"))}</strong>
-              <div class="meta">${escapeHTML(formatDate(game.date))}</div></div>
-            <button class="btn danger small" data-delete="game" data-index="${index}">Remove</button>
-          </div>`).join("") : `<p>No games added yet.</p>`}
-      </div>
+    <section class="admin-panel"><h2>Manage games (${content.games.length})</h2>
+      <div class="admin-list">${content.games.length ? content.games.map((x,i)=>`
+        <div class="admin-item"><div><strong>${esc(titleOf(x))}</strong><small>${esc(dateOf(x.date))}</small></div>
+        <button class="btn danger small" data-delete="game" data-index="${i}">Remove</button></div>`).join(""):"<p>No games added yet.</p>"}</div>
     </section>
 
-    <section class="panel">
-      <h3>Manage Highlights (${content.highlights.length})</h3>
-      <div class="admin-list">
-        ${content.highlights.length ? content.highlights.map((item, index) => `
-          <div class="admin-item">
-            <div><strong>${escapeHTML(getTitle(item, "Highlight"))}</strong>
-              <div class="meta">${escapeHTML(formatDate(item.date))}</div></div>
-            <button class="btn danger small" data-delete="highlight" data-index="${index}">Remove</button>
-          </div>`).join("") : `<p>No highlights added yet.</p>`}
-      </div>
-    </section>`;
+    <section class="admin-panel"><h2>Manage highlights (${content.highlights.length})</h2>
+      <div class="admin-list">${content.highlights.length ? content.highlights.map((x,i)=>`
+        <div class="admin-item"><div><strong>${esc(titleOf(x))}</strong><small>${esc(dateOf(x.date))}</small></div>
+        <button class="btn danger small" data-delete="highlight" data-index="${i}">Remove</button></div>`).join(""):"<p>No highlights added yet.</p>"}</div>
+    </section>
+    <button class="btn secondary" id="logout">Sign out</button>`;
 }
 
 function render() {
-  document.querySelectorAll("nav button").forEach(button => {
-    button.classList.toggle("active", button.dataset.page === currentPage);
+  document.querySelectorAll("[data-page]").forEach(b=>{
+    b.classList.toggle("active",b.dataset.page===currentPage);
   });
 
   if (loading) {
-    app.innerHTML = `<div class="loading">Loading Buckeye Vault…</div>`;
+    app.innerHTML = '<div class="loading">Loading Buckeye Vault…</div>';
     return;
   }
 
-  if (currentPage === "home") app.innerHTML = renderHome();
-  else if (currentPage === "games") app.innerHTML = renderGames();
-  else if (currentPage === "highlights") app.innerHTML = renderHighlights();
-  else if (currentPage === "admin") app.innerHTML = renderAdmin();
+  if (currentPage==="home") app.innerHTML=homePage();
+  else if (currentPage==="games") app.innerHTML=listPage("game");
+  else if (currentPage==="highlights") app.innerHTML=listPage("highlight");
+  else app.innerHTML=adminPage();
 
-  bindPageEvents();
-}
-
-function bindPageEvents() {
-  document.querySelectorAll("[data-go]").forEach(button => {
-    button.addEventListener("click", () => navigate(button.dataset.go));
-  });
-
-  const search = document.getElementById("search");
-  if (search) {
-    search.addEventListener("input", event => {
-      const position = event.target.selectionStart;
-      searchTerm = event.target.value;
-      render();
-      const updated = document.getElementById("search");
-      updated?.focus();
-      updated?.setSelectionRange(position, position);
-    });
-  }
-
-  document.querySelectorAll("[data-delete]").forEach(button => {
-    button.addEventListener("click", async () => {
-      if (!isAdmin) return;
-
-      const type = button.dataset.delete;
-      const index = Number(button.dataset.index);
-      const array = type === "game" ? content.games : content.highlights;
-      const item = array[index];
-
-      if (!item || !confirm(`Remove "${getTitle(item, type)}"?`)) return;
-
-      array.splice(index, 1);
-      await saveContent();
-    });
-  });
-
-  const loginForm = document.getElementById("login-form");
-  if (loginForm) {
-    loginForm.addEventListener("submit", async event => {
-      event.preventDefault();
-      const password = document.getElementById("admin-password").value;
-      const errorBox = document.getElementById("login-error");
-      errorBox.innerHTML = "";
-
-      try {
-        await api("/api/login", {
-          method: "POST",
-          body: JSON.stringify({ password })
-        });
-
-        isAdmin = true;
-        showStatus("Signed in successfully.", "success");
-        render();
-      } catch (error) {
-        errorBox.innerHTML = `<div class="notice error">${escapeHTML(error.message || "Login failed.")}</div>`;
-      }
-    });
-  }
-
-  const logoutButton = document.getElementById("logout-button");
-  if (logoutButton) {
-    logoutButton.addEventListener("click", async () => {
-      try {
-        await api("/api/logout", { method: "POST" });
-        isAdmin = false;
-        showStatus("You have been logged out.", "success");
-        render();
-      } catch (error) {
-        showStatus("Logout failed: " + error.message, "error");
-      }
-    });
-  }
-
-  const gameForm = document.getElementById("game-form");
-  if (gameForm) {
-    gameForm.addEventListener("submit", async event => {
-      event.preventDefault();
-      if (!isAdmin) return;
-
-      const videoUrl = document.getElementById("game-video").value.trim();
-      if (videoUrl && !getVideoInfo(videoUrl)) {
-        showStatus("Enter a valid HTTPS YouTube, Vimeo, or direct MP4/WebM/Ogg video URL.", "error");
-        return;
-      }
-
-      const title = document.getElementById("game-title").value.trim();
-      const opponent = document.getElementById("game-opponent").value.trim();
-      const date = document.getElementById("game-date").value;
-      const season = document.getElementById("game-season").value.trim();
-      const score = document.getElementById("game-score").value.trim();
-      const description = document.getElementById("game-description").value.trim();
-
-      content.games.unshift({
-        id: makeId(),
-        title,
-        opponent,
-        date,
-        season,
-        score,
-        description,
-        videoUrl
-      });
-
-      await saveContent();
-    });
-  }
-
-  const highlightForm = document.getElementById("highlight-form");
-  if (highlightForm) {
-    highlightForm.addEventListener("submit", async event => {
-      event.preventDefault();
-      if (!isAdmin) return;
-
-      const title = document.getElementById("highlight-title").value.trim();
-      const videoUrl = document.getElementById("highlight-video").value.trim();
-      const date = document.getElementById("highlight-date").value;
-      const description = document.getElementById("highlight-description").value.trim();
-
-      if (!getVideoInfo(videoUrl)) {
-        showStatus("Enter a valid HTTPS YouTube, Vimeo, or direct MP4/WebM/Ogg video URL.", "error");
-        return;
-      }
-
-      content.highlights.unshift({
-        id: makeId(),
-        title,
-        videoUrl,
-        date,
-        description
-      });
-
-      await saveContent();
-    });
-  }
-}
-
-function makeId() {
-  return window.crypto?.randomUUID?.() ||
-    Date.now().toString(36) + Math.random().toString(36).slice(2);
+  bindEvents();
 }
 
 function navigate(page) {
-  currentPage = page;
-  searchTerm = "";
-  showStatus("");
+  currentPage=page;
+  searchTerm="";
+  notify("");
   render();
-  window.scrollTo({ top: 0, behavior: "smooth" });
+  window.scrollTo({top:0,behavior:"smooth"});
 }
 
-document.querySelectorAll("nav button").forEach(button => {
-  button.addEventListener("click", () => navigate(button.dataset.page));
+function makeId() {
+  return crypto.randomUUID ? crypto.randomUUID() :
+    Date.now().toString(36)+Math.random().toString(36).slice(2);
+}
+
+function bindEvents() {
+  document.querySelectorAll("[data-go]").forEach(b=>{
+    b.addEventListener("click",()=>navigate(b.dataset.go));
+  });
+
+  const search=document.getElementById("search");
+  if(search) search.addEventListener("input",e=>{
+    const pos=e.target.selectionStart;
+    searchTerm=e.target.value;
+    render();
+    const next=document.getElementById("search");
+    next?.focus();
+    next?.setSelectionRange(pos,pos);
+  });
+
+  document.querySelectorAll("[data-delete]").forEach(b=>{
+    b.addEventListener("click",async()=>{
+      if(!isAdmin)return;
+      const type=b.dataset.delete;
+      const index=Number(b.dataset.index);
+      const array=type==="game"?content.games:content.highlights;
+      if(!array[index])return;
+      if(!confirm(`Remove "${titleOf(array[index])}"?`))return;
+      array.splice(index,1);
+      await saveContent();
+    });
+  });
+
+  const login=document.getElementById("login-form");
+  if(login)login.addEventListener("submit",async e=>{
+    e.preventDefault();
+    const error=document.getElementById("login-error");
+    error.innerHTML="";
+    try{
+      await api("/api/login",{method:"POST",body:JSON.stringify({
+        password:document.getElementById("password").value
+      })});
+      isAdmin=true;
+      notify("Signed in successfully.","success");
+      render();
+    }catch(err){
+      error.innerHTML=`<div class="notice error">${esc(err.message||"Login failed.")}</div>`;
+    }
+  });
+
+  const logout=document.getElementById("logout");
+  if(logout)logout.addEventListener("click",async()=>{
+    try{
+      await api("/api/logout",{method:"POST"});
+      isAdmin=false;
+      navigate("home");
+      notify("Signed out.","success");
+    }catch(err){notify("Sign out failed: "+err.message,"error");}
+  });
+
+  const gameForm=document.getElementById("game-form");
+  if(gameForm)gameForm.addEventListener("submit",async e=>{
+    e.preventDefault();
+    if(!isAdmin)return;
+    const videoUrl=document.getElementById("gv").value.trim();
+    if(videoUrl&&!videoInfo(videoUrl)){
+      notify("Use a valid HTTPS YouTube, Vimeo, or direct MP4/WebM/Ogg video URL.","error");return;
+    }
+    content.games.unshift({
+      id:makeId(),
+      title:document.getElementById("gt").value.trim(),
+      opponent:document.getElementById("go").value.trim(),
+      date:document.getElementById("gd").value,
+      season:document.getElementById("gs").value.trim(),
+      score:document.getElementById("gscore").value.trim(),
+      description:document.getElementById("gdesc").value.trim(),
+      videoUrl
+    });
+    await saveContent();
+  });
+
+  const highlightForm=document.getElementById("highlight-form");
+  if(highlightForm)highlightForm.addEventListener("submit",async e=>{
+    e.preventDefault();
+    if(!isAdmin)return;
+    const videoUrl=document.getElementById("hv").value.trim();
+    if(!videoInfo(videoUrl)){
+      notify("Enter a valid HTTPS YouTube, Vimeo, or direct video URL.","error");return;
+    }
+    content.highlights.unshift({
+      id:makeId(),
+      title:document.getElementById("ht").value.trim(),
+      date:document.getElementById("hd").value,
+      description:document.getElementById("hdesc").value.trim(),
+      videoUrl
+    });
+    await saveContent();
+  });
+}
+
+document.querySelectorAll("[data-page]").forEach(b=>{
+  b.addEventListener("click",()=>navigate(b.dataset.page));
 });
 
 loadContent();
