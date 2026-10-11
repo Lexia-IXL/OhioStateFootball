@@ -4,21 +4,20 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<meta name="theme-color" content="#111111">
+<meta name="theme-color" content="#8b0000">
 <title>Buckeye Vault | Ohio State Football</title>
 <style>
 :root {
-  --red: #bb0000;
-  --red-light: #ed1c24;
+  --scarlet: #bb0000;
+  --scarlet-dark: #790000;
   --bg: #101010;
-  --panel: #191919;
-  --panel2: #202020;
+  --panel: #1a1a1a;
+  --panel2: #222;
   --text: #f7f7f7;
   --muted: #aaa;
   --border: #333;
 }
 * { box-sizing: border-box; }
-html { scroll-behavior: smooth; }
 body {
   margin: 0;
   background: var(--bg);
@@ -27,687 +26,895 @@ body {
 }
 button, input, textarea, select { font: inherit; }
 button { cursor: pointer; }
-a { color: inherit; }
 header {
-  background: rgba(12,12,12,.97);
-  border-bottom: 1px solid #303030;
-  position: sticky;
-  top: 0;
-  z-index: 10;
+  background: linear-gradient(120deg, #790000, #bd0000);
+  border-bottom: 3px solid #e5b64b;
 }
-.nav {
-  max-width: 1250px;
+.header-inner {
+  max-width: 1200px;
   margin: auto;
-  min-height: 76px;
-  padding: 12px 24px;
+  padding: 23px 20px;
   display: flex;
   align-items: center;
   justify-content: space-between;
   gap: 20px;
+  flex-wrap: wrap;
 }
 .brand {
   display: flex;
   align-items: center;
-  gap: 12px;
-  font-size: 19px;
-  font-weight: 900;
-  letter-spacing: 1.2px;
+  gap: 14px;
 }
 .logo {
-  width: 43px;
-  height: 43px;
-  background: var(--red);
-  border-radius: 9px;
+  width: 58px;
+  height: 58px;
+  border: 3px solid white;
+  border-radius: 50%;
   display: grid;
   place-items: center;
+  font-weight: 900;
   font-size: 25px;
-  box-shadow: 0 0 25px #bb000044;
+  background: white;
+  color: var(--scarlet);
 }
-.brand small {
-  display: block;
-  font-size: 10px;
-  letter-spacing: 3px;
-  color: #bbb;
-  margin-top: 4px;
-}
+.brand h1 { margin: 0; font-size: 28px; }
+.brand p { margin: 5px 0 0; color: #ffe1e1; font-size: 13px; }
 nav { display: flex; gap: 8px; flex-wrap: wrap; }
-.nav-btn {
-  border: 0;
-  color: #ccc;
-  background: transparent;
+nav button {
+  border: 1px solid #ffffff50;
+  background: #ffffff12;
+  color: white;
   padding: 11px 14px;
-  border-radius: 6px;
-  font-weight: 700;
+  border-radius: 7px;
+  font-weight: bold;
 }
-.nav-btn:hover, .nav-btn.active { color: white; background: var(--red); }
-main { min-height: 75vh; }
-.wrap { max-width: 1190px; margin: auto; padding: 35px 24px 70px; }
+nav button:hover, nav button.active { background: white; color: var(--scarlet-dark); }
+main { max-width: 1200px; margin: auto; padding: 25px 20px 55px; }
 .hero {
-  position: relative;
-  overflow: hidden;
-  min-height: 350px;
-  border-radius: 15px;
-  padding: 55px;
+  min-height: 240px;
+  padding: 36px;
+  border-radius: 14px;
+  background:
+    linear-gradient(90deg, #240000ed, #8b0000a8),
+    repeating-linear-gradient(45deg, #ffffff08 0 2px, transparent 2px 12px);
+  border: 1px solid #8b2929;
   display: flex;
   align-items: center;
-  background:
-    radial-gradient(ellipse at 85% 20%, #bb000077, transparent 42%),
-    linear-gradient(110deg, #202020, #101010 70%);
-  border: 1px solid #343434;
+  margin-bottom: 32px;
 }
-.hero::after {
-  content: "O";
-  position: absolute;
-  right: 8%;
-  top: -90px;
-  color: #bb000019;
-  font-family: Georgia, serif;
-  font-size: 440px;
-  font-weight: bold;
-  pointer-events: none;
-}
-.hero-content { position: relative; z-index: 1; max-width: 690px; }
+.hero h2 { font-size: clamp(30px, 5vw, 50px); margin: 0 0 12px; }
+.hero p { color: #eee; line-height: 1.6; max-width: 600px; }
 .eyebrow {
-  display: inline-block;
-  color: #ff6b6b;
-  font-size: 12px;
-  letter-spacing: 3px;
-  font-weight: 800;
+  color: #ffd15c;
   text-transform: uppercase;
-  margin-bottom: 15px;
+  letter-spacing: 2px;
+  font-size: 12px;
+  font-weight: bold;
 }
-h1 { font-size: clamp(38px, 6vw, 68px); line-height: .98; margin: 0 0 20px; letter-spacing: -2px; }
-h1 span { color: var(--red-light); }
-.hero p { color: #c2c2c2; font-size: 17px; line-height: 1.7; max-width: 560px; }
-.primary, .secondary, .danger {
-  border: 0;
-  border-radius: 6px;
-  padding: 12px 17px;
-  font-weight: 800;
-}
-.primary { color: white; background: var(--red); }
-.primary:hover { background: #e00000; }
-.secondary { background: #303030; color: white; border: 1px solid #454545; }
-.danger { background: #6d1717; color: white; }
-.hero-actions { display: flex; gap: 12px; flex-wrap: wrap; margin-top: 25px; }
-.section-head {
+.section-heading {
   display: flex;
-  align-items: end;
   justify-content: space-between;
+  align-items: center;
   gap: 15px;
-  margin: 42px 0 20px;
+  flex-wrap: wrap;
+  margin: 30px 0 17px;
 }
-.section-head h2, .page-title { margin: 0; font-size: 28px; }
-.section-head p { margin: 7px 0 0; color: var(--muted); }
-.section-head button { white-space: nowrap; }
+.section-heading h2 { margin: 0; font-size: 25px; }
+.section-heading p { color: var(--muted); margin: 6px 0 0; }
 .grid {
   display: grid;
-  grid-template-columns: repeat(3, minmax(0, 1fr));
-  gap: 18px;
+  grid-template-columns: repeat(auto-fit, minmax(min(100%, 310px), 1fr));
+  gap: 20px;
 }
 .card {
   min-width: 0;
   background: var(--panel);
   border: 1px solid var(--border);
-  border-radius: 10px;
+  border-radius: 12px;
   overflow: hidden;
-  transition: transform .18s, border-color .18s;
-}
-.card:hover { transform: translateY(-3px); border-color: #6e2525; }
-.card-art {
-  height: 155px;
-  display: grid;
-  place-items: center;
-  background:
-    radial-gradient(circle at 70% 20%, #bb000055, transparent 45%),
-    linear-gradient(135deg, #282828, #141414);
-  border-bottom: 1px solid #333;
-  color: #e2e2e2;
-  font-size: 50px;
-  font-weight: 900;
 }
 .card-body { padding: 18px; }
+.card h3 { margin: 0 0 10px; font-size: 20px; overflow-wrap: anywhere; }
+.card p { color: #ccc; line-height: 1.55; overflow-wrap: anywhere; }
+.meta { color: var(--muted); font-size: 13px; margin-bottom: 13px; }
 .tag {
   display: inline-block;
-  color: #ff7777;
-  background: #bb000022;
-  border: 1px solid #bb000044;
-  border-radius: 4px;
+  background: #4b0000;
+  border: 1px solid #8d3030;
+  border-radius: 5px;
   padding: 5px 8px;
-  font-size: 10px;
-  font-weight: 900;
-  letter-spacing: 1px;
-  text-transform: uppercase;
+  color: #ffdada;
+  font-size: 12px;
+  margin: 0 5px 8px 0;
 }
-.card h3 { margin: 12px 0 8px; font-size: 19px; }
-.card p { color: #aaa; font-size: 14px; line-height: 1.55; }
-.card-meta { color: #ddd; font-size: 13px; margin-top: 14px; }
-.card-actions { display: flex; gap: 8px; margin-top: 14px; flex-wrap: wrap; }
-.card-actions button, .card-actions a { font-size: 12px; text-decoration: none; }
-.page-title { font-size: 36px; margin-bottom: 9px; }
-.page-intro { color: var(--muted); margin: 0 0 28px; line-height: 1.6; }
-.filters { display: flex; gap: 10px; flex-wrap: wrap; margin: 22px 0 30px; }
-.filters input, .filters select {
-  background: #1b1b1b;
-  border: 1px solid #414141;
+.video-player {
+  position: relative;
+  width: 100%;
+  aspect-ratio: 16 / 9;
+  background: #000;
+  overflow: hidden;
+}
+.video-player iframe, .video-player video {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  border: 0;
+}
+.video-placeholder {
+  width: 100%;
+  aspect-ratio: 16 / 9;
+  display: grid;
+  place-items: center;
+  text-align: center;
+  padding: 20px;
+  background: linear-gradient(135deg, #300000, #151515);
   color: white;
-  border-radius: 6px;
-  padding: 11px 12px;
-  min-width: 150px;
 }
-.season-heading {
-  border-left: 4px solid var(--red);
-  padding-left: 14px;
-  margin: 34px 0 17px;
-  font-size: 23px;
+.play-icon { font-size: 43px; color: #ffcbcb; }
+.btn {
+  display: inline-block;
+  padding: 11px 15px;
+  border: 0;
+  border-radius: 7px;
+  background: var(--scarlet);
+  color: white;
+  font-weight: bold;
+  text-decoration: none;
+}
+.btn:hover { background: #e00000; }
+.btn.secondary { background: #333; border: 1px solid #555; }
+.btn.danger { background: #742222; }
+.btn.small { padding: 8px 10px; font-size: 13px; }
+.searchbar {
+  width: 100%;
+  max-width: 390px;
+  padding: 12px;
+  background: #191919;
+  color: white;
+  border: 1px solid #444;
+  border-radius: 7px;
 }
 .empty {
-  padding: 45px 20px;
+  padding: 35px 20px;
   text-align: center;
+  color: var(--muted);
+  background: var(--panel);
   border: 1px dashed #444;
   border-radius: 10px;
-  color: #aaa;
+  grid-column: 1 / -1;
 }
-.admin-box {
-  max-width: 850px;
-  margin: 15px auto;
+.panel {
   background: var(--panel);
   border: 1px solid var(--border);
-  padding: 25px;
-  border-radius: 10px;
+  border-radius: 12px;
+  padding: 22px;
+  margin-bottom: 20px;
 }
+.panel h2, .panel h3 { margin-top: 0; }
 .form-grid {
   display: grid;
   grid-template-columns: repeat(2, minmax(0, 1fr));
   gap: 14px;
 }
-.field { display: flex; flex-direction: column; gap: 7px; }
+.field { display: flex; flex-direction: column; gap: 7px; min-width: 0; }
 .field.full { grid-column: 1 / -1; }
-.field label { font-size: 12px; font-weight: 800; color: #ddd; }
+.field label { font-size: 13px; color: #ddd; font-weight: bold; }
 .field input, .field textarea, .field select {
   width: 100%;
-  border: 1px solid #414141;
-  background: #111;
-  color: white;
-  border-radius: 6px;
   padding: 12px;
+  border: 1px solid #444;
+  background: #101010;
+  color: white;
+  border-radius: 7px;
 }
-.field textarea { min-height: 90px; resize: vertical; }
-.admin-section { border-top: 1px solid #383838; margin-top: 26px; padding-top: 24px; }
-.admin-section h3 { margin-top: 0; }
-.admin-entry {
+.field textarea { min-height: 85px; resize: vertical; }
+.form-actions { display: flex; gap: 10px; flex-wrap: wrap; margin-top: 16px; }
+.notice {
+  padding: 12px;
+  border-radius: 7px;
+  margin: 12px 0;
+  background: #222;
+  border: 1px solid #444;
+  color: #ddd;
+  overflow-wrap: anywhere;
+}
+.notice.error { border-color: #a33; color: #ffbaba; }
+.notice.success { border-color: #387e45; color: #b6f5c2; }
+.admin-list { display: flex; flex-direction: column; gap: 10px; }
+.admin-item {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  gap: 12px;
-  padding: 13px 0;
-  border-bottom: 1px solid #333;
+  gap: 15px;
+  flex-wrap: wrap;
+  background: #111;
+  padding: 13px;
+  border-radius: 8px;
+  border: 1px solid #333;
 }
-.admin-entry p { color: #aaa; margin: 5px 0 0; font-size: 13px; }
-.notice { padding: 12px 14px; border-radius: 6px; margin: 15px 0; background: #242424; color: #ddd; }
-.notice.error { background: #481919; color: #ffd5d5; }
-.notice.success { background: #18321f; color: #c9ffd5; }
+.admin-item strong { overflow-wrap: anywhere; }
 footer {
-  border-top: 1px solid #303030;
-  padding: 30px 24px;
+  padding: 25px 20px;
   text-align: center;
-  color: #888;
-  font-size: 12px;
-  line-height: 1.8;
+  color: #999;
+  border-top: 1px solid #292929;
+  font-size: 13px;
 }
-footer strong { color: #ddd; }
 .hidden { display: none !important; }
-@media (max-width: 850px) {
-  .grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
-  .hero { padding: 35px 28px; }
-  .nav { align-items: flex-start; flex-direction: column; }
-}
-@media (max-width: 560px) {
-  .grid { grid-template-columns: 1fr; }
-  .wrap { padding: 24px 15px 50px; }
-  .hero { padding: 30px 22px; min-height: 310px; }
-  .hero::after { right: -50px; font-size: 320px; }
+.loading { text-align: center; padding: 45px 15px; color: #bbb; }
+@media (max-width: 600px) {
+  .header-inner { padding: 18px 14px; }
+  .brand h1 { font-size: 22px; }
+  .logo { width: 47px; height: 47px; font-size: 20px; }
+  nav { width: 100%; }
+  nav button { flex: 1; padding: 10px 7px; font-size: 12px; }
+  main { padding: 18px 13px 35px; }
+  .hero { padding: 24px 19px; min-height: 200px; }
   .form-grid { grid-template-columns: 1fr; }
   .field.full { grid-column: auto; }
-  .section-head { align-items: flex-start; flex-direction: column; }
-  .brand { font-size: 16px; }
 }
 </style>
 </head>
 <body>
 <header>
-  <div class="nav">
+  <div class="header-inner">
     <div class="brand">
-      <div class="logo">O</div>
-      <div>BUCKEYE VAULT<small>OHIO STATE FOOTBALL</small></div>
+      <div class="logo">OSU</div>
+      <div>
+        <h1>BUCKEYE VAULT</h1>
+        <p>Ohio State Football • Games • Highlights</p>
+      </div>
     </div>
     <nav aria-label="Main navigation">
-      <button class="nav-btn active" data-page="home">Home</button>
-      <button class="nav-btn" data-page="games">Games</button>
-      <button class="nav-btn" data-page="highlights">Highlights</button>
-      <button class="nav-btn" data-page="admin">Admin</button>
+      <button class="active" data-page="home">Home</button>
+      <button data-page="games">Games</button>
+      <button data-page="highlights">Highlights</button>
+      <button data-page="admin">Admin</button>
     </nav>
   </div>
 </header>
 
-<main id="app">
-  <div class="wrap"><div class="empty">Loading Buckeye Vault…</div></div>
+<main>
+  <div id="status" role="status" aria-live="polite"></div>
+  <div id="app"><div class="loading">Loading Buckeye Vault…</div></div>
 </main>
 
 <footer>
-  <strong>BUCKEYE VAULT</strong><br>
-  An independent fan project for organizing Ohio State football games and highlight links.<br>
-  Not affiliated with The Ohio State University. Video content belongs to its respective owners.
+  Buckeye Vault • An independent fan project. Not affiliated with or endorsed by The Ohio State University.
 </footer>
 
 <script>
+"use strict";
+
 const app = document.getElementById("app");
+const statusBox = document.getElementById("status");
+
 let content = { games: [], highlights: [] };
 let isAdmin = false;
 let currentPage = "home";
-let notice = "";
-let noticeType = "success";
+let searchTerm = "";
+let loading = true;
 
-const esc = value => String(value ?? "").replace(/[&<>"']/g, c => ({
-  "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;"
-}[c]));
+function escapeHTML(value) {
+  return String(value ?? "").replace(/[&<>"']/g, char => ({
+    "&": "&amp;",
+    "<": "&lt;",
+    ">": "&gt;",
+    '"': "&quot;",
+    "'": "&#39;"
+  })[char]);
+}
 
-function safeVideoUrl(value) {
+function showStatus(message, type = "") {
+  statusBox.innerHTML = message
+    ? `<div class="notice ${type}">${escapeHTML(message)}</div>`
+    : "";
+}
+
+async function api(path, options = {}) {
+  const response = await fetch(path, {
+    credentials: "same-origin",
+    ...options,
+    headers: {
+      ...(options.body ? { "Content-Type": "application/json" } : {}),
+      ...(options.headers || {})
+    }
+  });
+
+  const text = await response.text();
+  let data = {};
+
   try {
-    const u = new URL(value);
-    if (u.protocol !== "https:") return "";
-    if (!["youtube.com", "www.youtube.com", "youtu.be", "www.youtube-nocookie.com", "vimeo.com", "www.vimeo.com", "player.vimeo.com"].includes(u.hostname)) return "";
-    return u.href;
-  } catch { return ""; }
+    data = text ? JSON.parse(text) : {};
+  } catch {
+    data = { message: text };
+  }
+
+  if (!response.ok) {
+    throw new Error(data.error || data.message || `Request failed (${response.status})`);
+  }
+
+  return data;
 }
 
-function videoLink(url, label = "Watch video") {
-  const safe = safeVideoUrl(url);
-  return safe ? `<a class="primary" style="display:inline-block;padding:9px 12px" href="${esc(safe)}" target="_blank" rel="noopener noreferrer">${esc(label)} ↗</a>` : "";
-}
+async function loadContent() {
+  loading = true;
 
-function emptyState(message) {
-  return `<div class="empty">${esc(message)}</div>`;
-}
+  try {
+    const data = await api("/api/content");
+    content = {
+      games: Array.isArray(data.games) ? data.games : [],
+      highlights: Array.isArray(data.highlights) ? data.highlights : []
+    };
+  } catch (error) {
+    showStatus("Couldn't load the saved content: " + error.message, "error");
+  }
 
-function gameCard(game) {
-  return `<article class="card">
-    <div class="card-art">🏈</div>
-    <div class="card-body">
-      <span class="tag">${esc(game.season || "Season unknown")}</span>
-      <h3>Ohio State vs. ${esc(game.opponent || "Opponent TBD")}</h3>
-      <p>${esc(game.description || "Ohio State football game")}</p>
-      <div class="card-meta">${esc(game.date || "Date TBD")} ${game.score ? " · " + esc(game.score) : ""}</div>
-      ${game.result ? `<div class="card-meta">${esc(game.result)}</div>` : ""}
-      <div class="card-actions">${videoLink(game.videoUrl)}</div>
-    </div>
-  </article>`;
-}
+  try {
+    const session = await api("/api/session");
+    isAdmin = Boolean(session.isAdmin);
+  } catch {
+    isAdmin = false;
+  }
 
-function highlightCard(item) {
-  return `<article class="card">
-    <div class="card-art">▶</div>
-    <div class="card-body">
-      <span class="tag">${esc(item.season || "Ohio State")}</span>
-      <h3>${esc(item.title || "Untitled highlight")}</h3>
-      <p>${esc(item.description || "Ohio State football highlight")}</p>
-      <div class="card-actions">${videoLink(item.videoUrl, "Watch highlight")}</div>
-    </div>
-  </article>`;
-}
-
-function groupGames(games) {
-  const groups = {};
-  games.forEach(g => {
-    const season = g.season || "Season unknown";
-    (groups[season] ||= []).push(g);
-  });
-  return Object.keys(groups).sort((a,b) => b.localeCompare(a, undefined, { numeric: true }))
-    .map(season => `<h2 class="season-heading">${esc(season)} Season</h2>
-      <div class="grid">${groups[season].map(gameCard).join("")}</div>`).join("");
-}
-
-function showNotice() {
-  return notice ? `<div class="notice ${esc(noticeType)}" role="status">${esc(notice)}</div>` : "";
-}
-
-function homePage() {
-  const recentGames = [...content.games].slice(0, 3);
-  const recentHighlights = [...content.highlights].slice(0, 3);
-  return `<div class="wrap">
-    <section class="hero">
-      <div class="hero-content">
-        <span class="eyebrow">Scarlet and Gray • Game Day Archive</span>
-        <h1>THE HOME OF<br><span>BUCKEYE</span> FOOTBALL.</h1>
-        <p>Your vault for Ohio State football games, season archives, and highlight links. Explore the games and moments that make Saturdays special.</p>
-        <div class="hero-actions">
-          <button class="primary" data-go="games">Explore Games →</button>
-          <button class="secondary" data-go="highlights">Watch Highlights</button>
-        </div>
-      </div>
-    </section>
-    <div class="section-head">
-      <div><h2>Game Archive</h2><p>Browse games organized by season.</p></div>
-      <button class="secondary" data-go="games">All Games →</button>
-    </div>
-    ${recentGames.length ? `<div class="grid">${recentGames.map(gameCard).join("")}</div>` : emptyState("No games have been added yet.")}
-    <div class="section-head">
-      <div><h2>Featured Highlights</h2><p>Find highlight links in one place.</p></div>
-      <button class="secondary" data-go="highlights">All Highlights →</button>
-    </div>
-    ${recentHighlights.length ? `<div class="grid">${recentHighlights.map(highlightCard).join("")}</div>` : emptyState("No highlights have been added yet.")}
-  </div>`;
-}
-
-function gamesPage() {
-  return `<div class="wrap">
-    <h1 class="page-title">Game Archive</h1>
-    <p class="page-intro">Explore Ohio State football games, grouped by season.</p>
-    <div class="filters">
-      <input id="gameSearch" placeholder="Search opponent or game…" aria-label="Search games">
-      <select id="seasonFilter" aria-label="Filter by season">
-        <option value="">All seasons</option>
-        ${[...new Set(content.games.map(g => g.season).filter(Boolean))]
-          .sort((a,b) => b.localeCompare(a, undefined, {numeric:true}))
-          .map(s => `<option value="${esc(s)}">${esc(s)}</option>`).join("")}
-      </select>
-    </div>
-    <div id="gamesList">${groupGames(content.games)}</div>
-  </div>`;
-}
-
-function highlightsPage() {
-  return `<div class="wrap">
-    <h1 class="page-title">Highlights</h1>
-    <p class="page-intro">Big plays, memorable moments, and highlight videos from Ohio State football.</p>
-    <div class="filters">
-      <input id="highlightSearch" placeholder="Search highlights…" aria-label="Search highlights">
-      <select id="highlightSeason" aria-label="Filter highlights by season">
-        <option value="">All seasons</option>
-        ${[...new Set(content.highlights.map(h => h.season).filter(Boolean))]
-          .sort((a,b) => b.localeCompare(a, undefined, {numeric:true}))
-          .map(s => `<option value="${esc(s)}">${esc(s)}</option>`).join("")}
-      </select>
-    </div>
-    <div id="highlightsList" class="grid">${content.highlights.map(highlightCard).join("") || emptyState("No highlights have been added yet.")}</div>
-  </div>`;
-}
-
-function loginPage() {
-  return `<div class="wrap">
-    <div class="admin-box">
-      <span class="eyebrow">Restricted area</span>
-      <h1 class="page-title">Admin Login</h1>
-      <p class="page-intro">Sign in to manage the game archive and highlights.</p>
-      ${showNotice()}
-      <form id="loginForm">
-        <div class="field">
-          <label for="adminPassword">Admin password</label>
-          <input id="adminPassword" name="password" type="password" autocomplete="current-password" required>
-        </div>
-        <div style="margin-top:16px"><button class="primary" type="submit">Sign In</button></div>
-      </form>
-    </div>
-  </div>`;
-}
-
-function adminPage() {
-  if (!isAdmin) return loginPage();
-  return `<div class="wrap">
-    <span class="eyebrow">Vault management</span>
-    <h1 class="page-title">Admin Dashboard</h1>
-    <p class="page-intro">Add and remove games and highlight links. Changes are saved on the server.</p>
-    ${showNotice()}
-    <div style="display:flex;gap:10px;flex-wrap:wrap;margin-bottom:24px">
-      <button class="secondary" id="logoutButton">Sign Out</button>
-    </div>
-
-    <div class="admin-box">
-      <h2>Add a Game</h2>
-      <form id="gameForm" class="form-grid">
-        <div class="field"><label for="gameSeason">Season (e.g. 2025)</label><input id="gameSeason" required maxlength="20" placeholder="2025"></div>
-        <div class="field"><label for="gameOpponent">Opponent</label><input id="gameOpponent" required maxlength="100" placeholder="Michigan"></div>
-        <div class="field"><label for="gameDate">Date</label><input id="gameDate" type="date"></div>
-        <div class="field"><label for="gameScore">Score</label><input id="gameScore" maxlength="40" placeholder="27–17"></div>
-        <div class="field"><label for="gameResult">Result / event</label><input id="gameResult" maxlength="100" placeholder="Win, Loss, Bowl Game…"></div>
-        <div class="field"><label for="gameVideo">YouTube or Vimeo URL</label><input id="gameVideo" type="url" placeholder="https://www.youtube.com/..."></div>
-        <div class="field full"><label for="gameDescription">Description</label><textarea id="gameDescription" maxlength="1000" placeholder="Short game description"></textarea></div>
-        <div class="field full"><button class="primary" type="submit">Add Game</button></div>
-      </form>
-      <div class="admin-section">
-        <h3>Existing Games (${content.games.length})</h3>
-        <div id="adminGames">${content.games.map((g,i) => `<div class="admin-entry"><div><strong>${esc(g.season)} · Ohio State vs. ${esc(g.opponent)}</strong><p>${esc(g.date)} ${esc(g.score)}</p></div><button class="danger" data-delete-game="${esc(g.id)}">Remove</button></div>`).join("") || emptyState("No games yet.")}</div>
-      </div>
-    </div>
-
-    <div class="admin-box">
-      <h2>Add a Highlight</h2>
-      <form id="highlightForm" class="form-grid">
-        <div class="field"><label for="highlightTitle">Highlight title</label><input id="highlightTitle" required maxlength="150" placeholder="Game-winning touchdown"></div>
-        <div class="field"><label for="highlightSeasonInput">Season</label><input id="highlightSeasonInput" maxlength="20" placeholder="2025"></div>
-        <div class="field full"><label for="highlightVideo">YouTube or Vimeo URL</label><input id="highlightVideo" type="url" required placeholder="https://www.youtube.com/..."></div>
-        <div class="field full"><label for="highlightDescription">Description</label><textarea id="highlightDescription" maxlength="1000" placeholder="Describe the highlight"></textarea></div>
-        <div class="field full"><button class="primary" type="submit">Add Highlight</button></div>
-      </form>
-      <div class="admin-section">
-        <h3>Existing Highlights (${content.highlights.length})</h3>
-        <div id="adminHighlights">${content.highlights.map(h => `<div class="admin-entry"><div><strong>${esc(h.title)}</strong><p>${esc(h.season)} · ${esc(h.description)}</p></div><button class="danger" data-delete-highlight="${esc(h.id)}">Remove</button></div>`).join("") || emptyState("No highlights yet.")}</div>
-      </div>
-    </div>
-  </div>`;
-}
-
-function render() {
-  document.querySelectorAll(".nav-btn").forEach(btn => {
-    btn.classList.toggle("active", btn.dataset.page === currentPage);
-  });
-  if (currentPage === "games") app.innerHTML = gamesPage();
-  else if (currentPage === "highlights") app.innerHTML = highlightsPage();
-  else if (currentPage === "admin") app.innerHTML = adminPage();
-  else app.innerHTML = homePage();
-}
-
-function setNotice(message, type = "success") {
-  notice = message;
-  noticeType = type;
-}
-
-async function refreshContent() {
-  const response = await fetch("/api/content", { cache: "no-store" });
-  if (!response.ok) throw new Error("Could not load the archive.");
-  content = await response.json();
+  loading = false;
+  render();
 }
 
 async function saveContent() {
-  const response = await fetch("/api/content", {
-    method: "PUT",
-    headers: { "Content-Type": "application/json" },
-    body: JSON.stringify(content)
-  });
-  const result = await response.json().catch(() => ({}));
-  if (!response.ok) throw new Error(result.error || "Could not save changes.");
-}
+  showStatus("Saving changes…");
 
-function filterGames() {
-  const q = document.getElementById("gameSearch")?.value.toLowerCase() || "";
-  const season = document.getElementById("seasonFilter")?.value || "";
-  const filtered = content.games.filter(g =>
-    (!season || g.season === season) &&
-    [g.opponent, g.description, g.result, g.score, g.season].join(" ").toLowerCase().includes(q)
-  );
-  const list = document.getElementById("gamesList");
-  if (list) list.innerHTML = filtered.length ? groupGames(filtered) : emptyState("No matching games found.");
-}
-
-function filterHighlights() {
-  const q = document.getElementById("highlightSearch")?.value.toLowerCase() || "";
-  const season = document.getElementById("highlightSeason")?.value || "";
-  const filtered = content.highlights.filter(h =>
-    (!season || h.season === season) &&
-    [h.title, h.description, h.season].join(" ").toLowerCase().includes(q)
-  );
-  const list = document.getElementById("highlightsList");
-  if (list) list.innerHTML = filtered.length ? filtered.map(highlightCard).join("") : emptyState("No matching highlights found.");
-}
-
-document.addEventListener("click", async event => {
-  const nav = event.target.closest("[data-page]");
-  if (nav) {
-    currentPage = nav.dataset.page;
-    setNotice("");
-    render();
-    window.scrollTo({ top: 0, behavior: "smooth" });
-    return;
-  }
-
-  const go = event.target.closest("[data-go]");
-  if (go) {
-    currentPage = go.dataset.go;
-    setNotice("");
-    render();
-    window.scrollTo({ top: 0, behavior: "smooth" });
-    return;
-  }
-
-  const deleteGame = event.target.closest("[data-delete-game]");
-  const deleteHighlight = event.target.closest("[data-delete-highlight]");
-
-  if (deleteGame) {
-    if (!confirm("Remove this game from the archive?")) return;
-    content.games = content.games.filter(g => g.id !== deleteGame.dataset.deleteGame);
-    try {
-      await saveContent();
-      setNotice("Game removed.");
-      render();
-    } catch (err) {
-      setNotice(err.message, "error");
-      render();
-    }
-  }
-
-  if (deleteHighlight) {
-    if (!confirm("Remove this highlight?")) return;
-    content.highlights = content.highlights.filter(h => h.id !== deleteHighlight.dataset.deleteHighlight);
-    try {
-      await saveContent();
-      setNotice("Highlight removed.");
-      render();
-    } catch (err) {
-      setNotice(err.message, "error");
-      render();
-    }
-  }
-
-  if (event.target.closest("#logoutButton")) {
-    await fetch("/api/logout", { method: "POST" });
-    isAdmin = false;
-    setNotice("You have signed out.");
-    render();
-  }
-});
-
-document.addEventListener("input", event => {
-  if (event.target.id === "gameSearch" || event.target.id === "seasonFilter") filterGames();
-  if (event.target.id === "highlightSearch" || event.target.id === "highlightSeason") filterHighlights();
-});
-
-document.addEventListener("change", event => {
-  if (event.target.id === "seasonFilter") filterGames();
-  if (event.target.id === "highlightSeason") filterHighlights();
-});
-
-document.addEventListener("submit", async event => {
-  if (event.target.id === "loginForm") {
-    event.preventDefault();
-    const password = document.getElementById("adminPassword").value;
-    const response = await fetch("/api/login", {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ password })
-    });
-    if (response.ok) {
-      isAdmin = true;
-      setNotice("Welcome to the dashboard.");
-    } else {
-      const result = await response.json().catch(() => ({}));
-      setNotice(result.error || "Login failed.", "error");
-    }
-    render();
-  }
-
-  if (event.target.id === "gameForm") {
-    event.preventDefault();
-    const game = {
-      id: crypto.randomUUID(),
-      season: document.getElementById("gameSeason").value.trim(),
-      opponent: document.getElementById("gameOpponent").value.trim(),
-      date: document.getElementById("gameDate").value,
-      score: document.getElementById("gameScore").value.trim(),
-      result: document.getElementById("gameResult").value.trim(),
-      description: document.getElementById("gameDescription").value.trim(),
-      videoUrl: document.getElementById("gameVideo").value.trim()
-    };
-    if (!game.season || !game.opponent) {
-      setNotice("Season and opponent are required.", "error");
-      render();
-      return;
-    }
-    if (game.videoUrl && !safeVideoUrl(game.videoUrl)) {
-      setNotice("Use an HTTPS YouTube or Vimeo URL.", "error");
-      render();
-      return;
-    }
-    content.games.push(game);
-    try {
-      await saveContent();
-      setNotice("Game added successfully.");
-      render();
-    } catch (err) {
-      content.games = content.games.filter(g => g.id !== game.id);
-      setNotice(err.message, "error");
-      render();
-    }
-  }
-
-  if (event.target.id === "highlightForm") {
-    event.preventDefault();
-    const item = {
-      id: crypto.randomUUID(),
-      title: document.getElementById("highlightTitle").value.trim(),
-      season: document.getElementById("highlightSeasonInput").value.trim(),
-      videoUrl: document.getElementById("highlightVideo").value.trim(),
-      description: document.getElementById("highlightDescription").value.trim()
-    };
-    if (!item.title || !safeVideoUrl(item.videoUrl)) {
-      setNotice("Enter a title and a valid HTTPS YouTube or Vimeo URL.", "error");
-      render();
-      return;
-    }
-    content.highlights.push(item);
-    try {
-      await saveContent();
-      setNotice("Highlight added successfully.");
-      render();
-    } catch (err) {
-      content.highlights = content.highlights.filter(h => h.id !== item.id);
-      setNotice(err.message, "error");
-      render();
-    }
-  }
-});
-
-async function start() {
   try {
-    await refreshContent();
-    const response = await fetch("/api/session");
-    const state = await response.json();
-    isAdmin = Boolean(state.isAdmin);
+    const data = await api("/api/content", {
+      method: "PUT",
+      body: JSON.stringify(content)
+    });
+
+    if (Array.isArray(data.games)) content.games = data.games;
+    if (Array.isArray(data.highlights)) content.highlights = data.highlights;
+
+    showStatus("Changes saved successfully!", "success");
     render();
-  } catch (err) {
-    app.innerHTML = `<div class="wrap">${emptyState("Could not connect to the server. Please refresh the page.")}</div>`;
+  } catch (error) {
+    showStatus("Couldn't save changes: " + error.message, "error");
   }
 }
-start();
+
+/*
+  Supported playback:
+  - YouTube watch links, youtu.be links, Shorts and embed links
+  - Vimeo links
+  - Direct HTTPS MP4, WebM and Ogg video files
+
+  YouTube/Vimeo links are converted to embed URLs instead of ordinary links.
+*/
+function getVideoInfo(rawURL) {
+  if (!rawURL || typeof rawURL !== "string") return null;
+
+  try {
+    const url = new URL(rawURL.trim());
+
+    if (url.protocol !== "https:") return null;
+
+    const host = url.hostname.toLowerCase();
+    const path = url.pathname;
+    let id = "";
+
+    if (["youtube.com", "www.youtube.com", "m.youtube.com",
+         "youtube-nocookie.com", "www.youtube-nocookie.com"].includes(host)) {
+      id = url.searchParams.get("v") ||
+        path.match(/^\/(?:embed|shorts|live)\/([^/?]+)/)?.[1] || "";
+
+      if (!/^[a-zA-Z0-9_-]{11}$/.test(id)) return null;
+
+      return {
+        type: "iframe",
+        src: "https://www.youtube-nocookie.com/embed/" + id
+      };
+    }
+
+    if (host === "youtu.be" || host === "www.youtu.be") {
+      id = path.split("/").filter(Boolean)[0] || "";
+
+      if (!/^[a-zA-Z0-9_-]{11}$/.test(id)) return null;
+
+      return {
+        type: "iframe",
+        src: "https://www.youtube-nocookie.com/embed/" + id
+      };
+    }
+
+    if (["vimeo.com", "www.vimeo.com", "player.vimeo.com"].includes(host)) {
+      const match = path.match(/\/(?:video\/)?(\d+)/);
+
+      if (!match) return null;
+
+      return {
+        type: "iframe",
+        src: "https://player.vimeo.com/video/" + match[1]
+      };
+    }
+
+    if (/\.(mp4|webm|ogg)$/i.test(path)) {
+      return { type: "video", src: url.href };
+    }
+
+    return { type: "external", src: url.href };
+  } catch {
+    return null;
+  }
+}
+
+function videoPlayer(rawURL, title) {
+  const info = getVideoInfo(rawURL);
+
+  if (!info) {
+    return `
+      <div class="video-placeholder">
+        <div>
+          <div class="play-icon">▶</div>
+          <p>No playable video added yet.</p>
+        </div>
+      </div>`;
+  }
+
+  if (info.type === "iframe") {
+    return `
+      <div class="video-player">
+        <iframe
+          src="${escapeHTML(info.src)}"
+          title="${escapeHTML(title || "Ohio State football video")}"
+          loading="lazy"
+          allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture; web-share"
+          referrerpolicy="strict-origin-when-cross-origin"
+          allowfullscreen>
+        </iframe>
+      </div>`;
+  }
+
+  if (info.type === "video") {
+    return `
+      <div class="video-player">
+        <video controls preload="metadata" playsinline>
+          <source src="${escapeHTML(info.src)}">
+          Your browser does not support HTML video.
+        </video>
+      </div>`;
+  }
+
+  return `
+    <div class="video-placeholder">
+      <div>
+        <div class="play-icon">▶</div>
+        <p>This link cannot be embedded automatically.</p>
+        <a class="btn" href="${escapeHTML(info.src)}"
+           target="_blank" rel="noopener noreferrer">Open video source</a>
+      </div>
+    </div>`;
+}
+
+function getTitle(item, fallback) {
+  return item.title || item.name || item.opponent || fallback;
+}
+
+function getVideoURL(item) {
+  return item.videoUrl || item.videoURL || item.video || item.url || "";
+}
+
+function formatDate(value) {
+  if (!value) return "";
+  const date = new Date(value + (String(value).length === 10 ? "T12:00:00" : ""));
+  if (Number.isNaN(date.getTime())) return String(value);
+  return date.toLocaleDateString(undefined, {
+    year: "numeric", month: "short", day: "numeric"
+  });
+}
+
+function gameCard(game, index) {
+  const title = getTitle(game, "Ohio State Game");
+  const opponent = game.opponent || "";
+  const date = formatDate(game.date);
+  const score = game.score || "";
+  const description = game.description || game.summary || "";
+
+  return `
+    <article class="card">
+      ${videoPlayer(getVideoURL(game), title)}
+      <div class="card-body">
+        <span class="tag">FOOTBALL GAME</span>
+        ${game.season ? `<span class="tag">${escapeHTML(game.season)}</span>` : ""}
+        <h3>${escapeHTML(title)}</h3>
+        <div class="meta">
+          ${date ? escapeHTML(date) : ""}
+          ${date && opponent ? " • " : ""}
+          ${opponent ? "vs. " + escapeHTML(opponent) : ""}
+        </div>
+        ${score ? `<p><strong>Score:</strong> ${escapeHTML(score)}</p>` : ""}
+        ${description ? `<p>${escapeHTML(description)}</p>` : ""}
+        ${isAdmin ? `<button class="btn danger small" data-delete="game" data-index="${index}">Remove game</button>` : ""}
+      </div>
+    </article>`;
+}
+
+function highlightCard(highlight, index) {
+  const title = getTitle(highlight, "Ohio State Highlight");
+  const description = highlight.description || highlight.summary || "";
+  const date = formatDate(highlight.date);
+
+  return `
+    <article class="card">
+      ${videoPlayer(getVideoURL(highlight), title)}
+      <div class="card-body">
+        <span class="tag">HIGHLIGHT</span>
+        <h3>${escapeHTML(title)}</h3>
+        ${date ? `<div class="meta">${escapeHTML(date)}</div>` : ""}
+        ${description ? `<p>${escapeHTML(description)}</p>` : ""}
+        ${isAdmin ? `<button class="btn danger small" data-delete="highlight" data-index="${index}">Remove highlight</button>` : ""}
+      </div>
+    </article>`;
+}
+
+function filterItems(items) {
+  if (!searchTerm) return items;
+
+  return items.filter(item => {
+    const searchable = [
+      item.title, item.name, item.opponent, item.description,
+      item.summary, item.season, item.date, item.score
+    ].join(" ").toLowerCase();
+
+    return searchable.includes(searchTerm.toLowerCase());
+  });
+}
+
+function renderHome() {
+  const games = filterItems(content.games);
+  const highlights = filterItems(content.highlights);
+
+  return `
+    <section class="hero">
+      <div>
+        <div class="eyebrow">The home of Buckeye football</div>
+        <h2>OHIO STATE.<br>ALL THE ACTION.</h2>
+        <p>Explore Buckeye games and relive the biggest moments. Watch available videos right here on Buckeye Vault.</p>
+        <button class="btn" data-go="games">Explore Games</button>
+        <button class="btn secondary" data-go="highlights">Watch Highlights</button>
+      </div>
+    </section>
+
+    <div class="section-heading">
+      <div><h2>Latest Games</h2><p>Games from the Buckeye Vault collection</p></div>
+      <button class="btn secondary" data-go="games">View all games →</button>
+    </div>
+    <div class="grid">
+      ${games.length
+        ? games.slice(0, 3).map(gameCard).join("")
+        : `<div class="empty">No games have been added yet.</div>`}
+    </div>
+
+    <div class="section-heading">
+      <div><h2>Featured Highlights</h2><p>Big plays and unforgettable moments</p></div>
+      <button class="btn secondary" data-go="highlights">View all highlights →</button>
+    </div>
+    <div class="grid">
+      ${highlights.length
+        ? highlights.slice(0, 3).map(highlightCard).join("")
+        : `<div class="empty">No highlights have been added yet.</div>`}
+    </div>`;
+}
+
+function renderGames() {
+  const games = filterItems(content.games);
+
+  return `
+    <div class="section-heading">
+      <div><h2>Ohio State Games</h2><p>Browse games and watch available footage.</p></div>
+      <input class="searchbar" id="search" placeholder="Search games…" value="${escapeHTML(searchTerm)}">
+    </div>
+    <div class="grid">
+      ${games.length
+        ? games.map(game => gameCard(game, content.games.indexOf(game))).join("")
+        : `<div class="empty">No matching games found.</div>`}
+    </div>`;
+}
+
+function renderHighlights() {
+  const highlights = filterItems(content.highlights);
+
+  return `
+    <div class="section-heading">
+      <div><h2>Football Highlights</h2><p>Watch the best Buckeye moments.</p></div>
+      <input class="searchbar" id="search" placeholder="Search highlights…" value="${escapeHTML(searchTerm)}">
+    </div>
+    <div class="grid">
+      ${highlights.length
+        ? highlights.map(item => highlightCard(item, content.highlights.indexOf(item))).join("")
+        : `<div class="empty">No matching highlights found.</div>`}
+    </div>`;
+}
+
+function renderAdmin() {
+  if (!isAdmin) {
+    return `
+      <section class="panel" style="max-width:480px;margin:30px auto">
+        <h2>Admin Login</h2>
+        <p>Sign in to manage games and highlights.</p>
+        <form id="login-form">
+          <div class="field">
+            <label for="admin-password">Admin password</label>
+            <input id="admin-password" type="password" autocomplete="current-password" required>
+          </div>
+          <div class="form-actions">
+            <button class="btn" type="submit">Sign In</button>
+          </div>
+          <div id="login-error" role="alert"></div>
+        </form>
+      </section>`;
+  }
+
+  return `
+    <div class="section-heading">
+      <div><h2>Admin Dashboard</h2><p>Add games, add highlights, and manage your collection.</p></div>
+      <button class="btn secondary" id="logout-button">Log Out</button>
+    </div>
+
+    <section class="panel">
+      <h3>Add a Game</h3>
+      <form id="game-form">
+        <div class="form-grid">
+          <div class="field">
+            <label for="game-title">Game title *</label>
+            <input id="game-title" required placeholder="Ohio State vs. Michigan">
+          </div>
+          <div class="field">
+            <label for="game-opponent">Opponent</label>
+            <input id="game-opponent" placeholder="Michigan">
+          </div>
+          <div class="field">
+            <label for="game-date">Game date</label>
+            <input id="game-date" type="date">
+          </div>
+          <div class="field">
+            <label for="game-season">Season</label>
+            <input id="game-season" placeholder="2026">
+          </div>
+          <div class="field">
+            <label for="game-score">Final score</label>
+            <input id="game-score" placeholder="Ohio State 31 - 20 Michigan">
+          </div>
+          <div class="field">
+            <label for="game-video">Video URL</label>
+            <input id="game-video" type="url" placeholder="https://www.youtube.com/watch?v=..." >
+          </div>
+          <div class="field full">
+            <label for="game-description">Description</label>
+            <textarea id="game-description" placeholder="Game recap or notes…"></textarea>
+          </div>
+        </div>
+        <div class="form-actions"><button class="btn" type="submit">Add Game</button></div>
+      </form>
+    </section>
+
+    <section class="panel">
+      <h3>Add a Highlight</h3>
+      <form id="highlight-form">
+        <div class="form-grid">
+          <div class="field">
+            <label for="highlight-title">Highlight title *</label>
+            <input id="highlight-title" required placeholder="Amazing touchdown">
+          </div>
+          <div class="field">
+            <label for="highlight-date">Date</label>
+            <input id="highlight-date" type="date">
+          </div>
+          <div class="field full">
+            <label for="highlight-video">Video URL *</label>
+            <input id="highlight-video" type="url" required placeholder="https://www.youtube.com/watch?v=...">
+          </div>
+          <div class="field full">
+            <label for="highlight-description">Description</label>
+            <textarea id="highlight-description" placeholder="Describe the play…"></textarea>
+          </div>
+        </div>
+        <div class="form-actions"><button class="btn" type="submit">Add Highlight</button></div>
+      </form>
+    </section>
+
+    <section class="panel">
+      <h3>Manage Games (${content.games.length})</h3>
+      <div class="admin-list">
+        ${content.games.length ? content.games.map((game, index) => `
+          <div class="admin-item">
+            <div><strong>${escapeHTML(getTitle(game, "Ohio State Game"))}</strong>
+              <div class="meta">${escapeHTML(formatDate(game.date))}</div></div>
+            <button class="btn danger small" data-delete="game" data-index="${index}">Remove</button>
+          </div>`).join("") : `<p>No games added yet.</p>`}
+      </div>
+    </section>
+
+    <section class="panel">
+      <h3>Manage Highlights (${content.highlights.length})</h3>
+      <div class="admin-list">
+        ${content.highlights.length ? content.highlights.map((item, index) => `
+          <div class="admin-item">
+            <div><strong>${escapeHTML(getTitle(item, "Highlight"))}</strong>
+              <div class="meta">${escapeHTML(formatDate(item.date))}</div></div>
+            <button class="btn danger small" data-delete="highlight" data-index="${index}">Remove</button>
+          </div>`).join("") : `<p>No highlights added yet.</p>`}
+      </div>
+    </section>`;
+}
+
+function render() {
+  document.querySelectorAll("nav button").forEach(button => {
+    button.classList.toggle("active", button.dataset.page === currentPage);
+  });
+
+  if (loading) {
+    app.innerHTML = `<div class="loading">Loading Buckeye Vault…</div>`;
+    return;
+  }
+
+  if (currentPage === "home") app.innerHTML = renderHome();
+  else if (currentPage === "games") app.innerHTML = renderGames();
+  else if (currentPage === "highlights") app.innerHTML = renderHighlights();
+  else if (currentPage === "admin") app.innerHTML = renderAdmin();
+
+  bindPageEvents();
+}
+
+function bindPageEvents() {
+  document.querySelectorAll("[data-go]").forEach(button => {
+    button.addEventListener("click", () => navigate(button.dataset.go));
+  });
+
+  const search = document.getElementById("search");
+  if (search) {
+    search.addEventListener("input", event => {
+      const position = event.target.selectionStart;
+      searchTerm = event.target.value;
+      render();
+      const updated = document.getElementById("search");
+      updated?.focus();
+      updated?.setSelectionRange(position, position);
+    });
+  }
+
+  document.querySelectorAll("[data-delete]").forEach(button => {
+    button.addEventListener("click", async () => {
+      if (!isAdmin) return;
+
+      const type = button.dataset.delete;
+      const index = Number(button.dataset.index);
+      const array = type === "game" ? content.games : content.highlights;
+      const item = array[index];
+
+      if (!item || !confirm(`Remove "${getTitle(item, type)}"?`)) return;
+
+      array.splice(index, 1);
+      await saveContent();
+    });
+  });
+
+  const loginForm = document.getElementById("login-form");
+  if (loginForm) {
+    loginForm.addEventListener("submit", async event => {
+      event.preventDefault();
+      const password = document.getElementById("admin-password").value;
+      const errorBox = document.getElementById("login-error");
+      errorBox.innerHTML = "";
+
+      try {
+        await api("/api/login", {
+          method: "POST",
+          body: JSON.stringify({ password })
+        });
+
+        isAdmin = true;
+        showStatus("Signed in successfully.", "success");
+        render();
+      } catch (error) {
+        errorBox.innerHTML = `<div class="notice error">${escapeHTML(error.message || "Login failed.")}</div>`;
+      }
+    });
+  }
+
+  const logoutButton = document.getElementById("logout-button");
+  if (logoutButton) {
+    logoutButton.addEventListener("click", async () => {
+      try {
+        await api("/api/logout", { method: "POST" });
+        isAdmin = false;
+        showStatus("You have been logged out.", "success");
+        render();
+      } catch (error) {
+        showStatus("Logout failed: " + error.message, "error");
+      }
+    });
+  }
+
+  const gameForm = document.getElementById("game-form");
+  if (gameForm) {
+    gameForm.addEventListener("submit", async event => {
+      event.preventDefault();
+      if (!isAdmin) return;
+
+      const videoUrl = document.getElementById("game-video").value.trim();
+      if (videoUrl && !getVideoInfo(videoUrl)) {
+        showStatus("Enter a valid HTTPS YouTube, Vimeo, or direct MP4/WebM/Ogg video URL.", "error");
+        return;
+      }
+
+      const title = document.getElementById("game-title").value.trim();
+      const opponent = document.getElementById("game-opponent").value.trim();
+      const date = document.getElementById("game-date").value;
+      const season = document.getElementById("game-season").value.trim();
+      const score = document.getElementById("game-score").value.trim();
+      const description = document.getElementById("game-description").value.trim();
+
+      content.games.unshift({
+        id: makeId(),
+        title,
+        opponent,
+        date,
+        season,
+        score,
+        description,
+        videoUrl
+      });
+
+      await saveContent();
+    });
+  }
+
+  const highlightForm = document.getElementById("highlight-form");
+  if (highlightForm) {
+    highlightForm.addEventListener("submit", async event => {
+      event.preventDefault();
+      if (!isAdmin) return;
+
+      const title = document.getElementById("highlight-title").value.trim();
+      const videoUrl = document.getElementById("highlight-video").value.trim();
+      const date = document.getElementById("highlight-date").value;
+      const description = document.getElementById("highlight-description").value.trim();
+
+      if (!getVideoInfo(videoUrl)) {
+        showStatus("Enter a valid HTTPS YouTube, Vimeo, or direct MP4/WebM/Ogg video URL.", "error");
+        return;
+      }
+
+      content.highlights.unshift({
+        id: makeId(),
+        title,
+        videoUrl,
+        date,
+        description
+      });
+
+      await saveContent();
+    });
+  }
+}
+
+function makeId() {
+  return window.crypto?.randomUUID?.() ||
+    Date.now().toString(36) + Math.random().toString(36).slice(2);
+}
+
+function navigate(page) {
+  currentPage = page;
+  searchTerm = "";
+  showStatus("");
+  render();
+  window.scrollTo({ top: 0, behavior: "smooth" });
+}
+
+document.querySelectorAll("nav button").forEach(button => {
+  button.addEventListener("click", () => navigate(button.dataset.page));
+});
+
+loadContent();
 </script>
 </body>
 </html>
