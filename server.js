@@ -16,23 +16,25 @@ const SESSION_SECRET =
 const DATA_DIR = process.env.DATA_DIR || path.join(__dirname, "data");
 const DATA_FILE = path.join(DATA_DIR, "content.json");
 const LIBRARY_FILE = path.join(__dirname, "data", "video-library.json");
-const IMPORT_MARKER = path.join(DATA_DIR, ".video-library-import-v1.done");
+const IMPORT_MARKER = path.join(DATA_DIR, ".video-library-import-v2.done");
 
 app.use(express.json({ limit: "2mb" }));
 app.use(express.urlencoded({ extended: false }));
 
-app.use(session({
-  name: "buckeye.sid",
-  secret: SESSION_SECRET,
-  resave: false,
-  saveUninitialized: false,
-  cookie: {
-    httpOnly: true,
-    sameSite: "lax",
-    secure: process.env.NODE_ENV === "production",
-    maxAge: 8 * 60 * 60 * 1000
-  }
-}));
+app.use(
+  session({
+    name: "buckeye.sid",
+    secret: SESSION_SECRET,
+    resave: false,
+    saveUninitialized: false,
+    cookie: {
+      httpOnly: true,
+      sameSite: "lax",
+      secure: process.env.NODE_ENV === "production",
+      maxAge: 8 * 60 * 60 * 1000
+    }
+  })
+);
 
 function starterData() {
   return {
@@ -81,6 +83,7 @@ function starterData() {
 
 function ensureData() {
   fs.mkdirSync(DATA_DIR, { recursive: true });
+
   if (!fs.existsSync(DATA_FILE)) {
     fs.writeFileSync(DATA_FILE, JSON.stringify(starterData(), null, 2));
   }
@@ -91,8 +94,10 @@ function readData() {
 
   try {
     const data = JSON.parse(fs.readFileSync(DATA_FILE, "utf8"));
+
     if (!Array.isArray(data.games)) data.games = [];
     if (!Array.isArray(data.highlights)) data.highlights = [];
+
     return data;
   } catch {
     return starterData();
@@ -134,14 +139,12 @@ function importLibraryOnce() {
 
     const newGames = (
       Array.isArray(library.games) ? library.games : []
-    ).filter(item =>
-      item && item.id && !gameIds.has(String(item.id))
-    );
+    ).filter(item => item && item.id && !gameIds.has(String(item.id)));
 
     const newHighlights = (
       Array.isArray(library.highlights) ? library.highlights : []
-    ).filter(item =>
-      item && item.id && !highlightIds.has(String(item.id))
+    ).filter(
+      item => item && item.id && !highlightIds.has(String(item.id))
     );
 
     current.games = [...newGames, ...current.games];
@@ -149,15 +152,21 @@ function importLibraryOnce() {
 
     writeData(current);
 
-    fs.writeFileSync(IMPORT_MARKER, JSON.stringify({
-      importedAt: new Date().toISOString(),
-      games: newGames.length,
-      highlights: newHighlights.length
-    }, null, 2));
+    fs.writeFileSync(
+      IMPORT_MARKER,
+      JSON.stringify(
+        {
+          importedAt: new Date().toISOString(),
+          games: newGames.length,
+          highlights: newHighlights.length
+        },
+        null,
+        2
+      )
+    );
 
     console.log(
-      `Imported ${newGames.length} games and ` +
-      `${newHighlights.length} highlights.`
+      `Imported ${newGames.length} games and ${newHighlights.length} highlights.`
     );
   } catch (error) {
     console.error("Video library import failed:", error.message);
@@ -167,9 +176,9 @@ function importLibraryOnce() {
 function requireAdmin(req, res, next) {
   if (req.session && req.session.isAdmin) return next();
 
-  return res.status(401).json({
-    error: "Please sign in as an administrator."
-  });
+  return res
+    .status(401)
+    .json({ error: "Please sign in as an administrator." });
 }
 
 function cleanText(value, maxLength = 500) {
@@ -200,10 +209,7 @@ function validVideoUrl(value) {
 
     if (url.protocol !== "https:") return null;
 
-    if (
-      !allowed.includes(url.hostname.toLowerCase()) &&
-      !directVideo
-    ) {
+    if (!allowed.includes(url.hostname.toLowerCase()) && !directVideo) {
       return null;
     }
 
@@ -230,16 +236,12 @@ app.post("/api/login", (req, res) => {
   const password = cleanText(req.body.password, 200);
 
   if (password !== ADMIN_PASSWORD) {
-    return res.status(401).json({
-      error: "Incorrect password."
-    });
+    return res.status(401).json({ error: "Incorrect password." });
   }
 
   req.session.regenerate(err => {
     if (err) {
-      return res.status(500).json({
-        error: "Could not start session."
-      });
+      return res.status(500).json({ error: "Could not start session." });
     }
 
     req.session.isAdmin = true;
@@ -280,9 +282,7 @@ app.put("/api/content", requireAdmin, (req, res) => {
     incoming.games.length > 300 ||
     incoming.highlights.length > 500
   ) {
-    return res.status(400).json({
-      error: "Too many entries."
-    });
+    return res.status(400).json({ error: "Too many entries." });
   }
 
   const games = [];
@@ -290,13 +290,12 @@ app.put("/api/content", requireAdmin, (req, res) => {
   for (const item of incoming.games) {
     if (!item || typeof item !== "object") continue;
 
-    const videoUrl = validVideoUrl(
-      cleanText(item.videoUrl, 1000)
-    );
+    const videoUrl = validVideoUrl(cleanText(item.videoUrl, 1000));
 
     if (videoUrl === null) {
       return res.status(400).json({
-        error: "Videos must use an HTTPS YouTube, Vimeo, or direct video link."
+        error:
+          "Videos must use an HTTPS YouTube, Vimeo, or direct video link."
       });
     }
 
@@ -318,13 +317,12 @@ app.put("/api/content", requireAdmin, (req, res) => {
   for (const item of incoming.highlights) {
     if (!item || typeof item !== "object") continue;
 
-    const videoUrl = validVideoUrl(
-      cleanText(item.videoUrl, 1000)
-    );
+    const videoUrl = validVideoUrl(cleanText(item.videoUrl, 1000));
 
     if (videoUrl === null) {
       return res.status(400).json({
-        error: "Videos must use an HTTPS YouTube, Vimeo, or direct video link."
+        error:
+          "Videos must use an HTTPS YouTube, Vimeo, or direct video link."
       });
     }
 
