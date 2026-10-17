@@ -201,8 +201,6 @@ main{max-width:1180px;margin:auto;padding:27px 24px 70px}
 .notice.success{border-color:#347647;color:#b6f3c4}
 .login-box{max-width:410px;margin:45px auto}
 .login-box .admin-panel{padding:26px}
-footer{border-top:1px solid #292929;padding:27px 20px;text-align:center;color:#777;font-size:11px;line-height:1.8}
-footer strong{color:#aaa}
 .hidden{display:none!important}
 .loading{padding:50px;text-align:center;color:#999}
 @media(max-width:850px){
@@ -353,19 +351,92 @@ async function saveContent() {
   }
 }
 
-function videoInfo(raw) {
-  if (typeof raw !== "string" || !raw.trim()) return null;
+/* SORTING: newest season first, then newest date within each season. */
+function titleOf(item, fallback="Ohio State Football") {
+  return item.title || item.name || item.opponent || fallback;
+}
+
+function getYear(item) {
+  const season = String(item.season || "");
+  const title = String(item.title || item.name || "");
+  const date = String(item.date || "");
+
+  const match =
+    season.match(/\b(18|19|20)\d{2}\b/) ||
+    title.match(/\b(18|19|20)\d{2}\b/) ||
+    date.match(/\b(18|19|20)\d{2}\b/);
+
+  return match ? Number(match[0]) : 0;
+}
+
+function getDate(item) {
+  const value = String(item.date || "");
+  const timestamp = Date.parse(value);
+  return Number.isNaN(timestamp) ? 0 : timestamp;
+}
+
+function filter(items) {
+  const filtered = items.filter(item => {
+    if (!searchTerm) return true;
+
+    return [
+      item.title,
+      item.name,
+      item.opponent,
+      item.description,
+      item.summary,
+      item.season,
+      item.date,
+      item.score
+    ].join(" ").toLowerCase().includes(searchTerm.toLowerCase());
+  });
+
+  return filtered.sort((a,b) =>
+    getYear(b) - getYear(a) ||
+    getDate(b) - getDate(a) ||
+    titleOf(a).localeCompare(titleOf(b))
+  );
+}
+
+function validVideoUrl(value) {
+  if (!value) return "";
 
   try {
-    const u = new URL(raw.trim());
-    if (u.protocol !== "https:") return null;
+    const url = new URL(value);
+    if (url.protocol !== "https:") return null;
 
+    const host = url.hostname.toLowerCase();
+    const path = url.pathname;
+
+    if ([
+      "youtube.com","www.youtube.com","m.youtube.com",
+      "youtube-nocookie.com","www.youtube-nocookie.com",
+      "youtu.be","www.youtu.be",
+      "vimeo.com","www.vimeo.com","player.vimeo.com"
+    ].includes(host)) return url.href;
+
+    if (/\.(mp4|webm|ogg)$/i.test(path)) return url.href;
+
+    return null;
+  } catch {
+    return null;
+  }
+}
+
+function videoInfo(raw) {
+  const valid = validVideoUrl(raw);
+  if (!valid) return null;
+
+  try {
+    const u = new URL(valid);
     const host = u.hostname.toLowerCase();
     const path = u.pathname;
     let id = "";
 
-    if (["youtube.com","www.youtube.com","m.youtube.com",
-         "youtube-nocookie.com","www.youtube-nocookie.com"].includes(host)) {
+    if ([
+      "youtube.com","www.youtube.com","m.youtube.com",
+      "youtube-nocookie.com","www.youtube-nocookie.com"
+    ].includes(host)) {
       id = u.searchParams.get("v") ||
         path.match(/^\/(?:embed|shorts|live)\/([^/?]+)/)?.[1] || "";
 
@@ -390,10 +461,21 @@ function videoInfo(raw) {
       return {type:"file",src:u.href};
     }
 
-    return {type:"external",src:u.href};
+    return null;
   } catch {
     return null;
   }
+}
+
+function urlOf(item) {
+  return item.videoUrl || item.videoURL || item.video || item.url || "";
+}
+
+function dateOf(value) {
+  if (!value) return "";
+  const d = new Date(String(value).length === 10 ? value+"T12:00:00" : value);
+  return Number.isNaN(d.getTime()) ? String(value) :
+    d.toLocaleDateString(undefined,{month:"short",day:"numeric",year:"numeric"});
 }
 
 function player(raw, title) {
@@ -427,28 +509,6 @@ function player(raw, title) {
     <div class="play">↗</div><span>This source does not support embedded playback.</span>
     <a class="btn small" href="${esc(v.src)}" target="_blank" rel="noopener noreferrer">Open source</a>
   </div></div>`;
-}
-
-function titleOf(item, fallback="Ohio State Football") {
-  return item.title || item.name || item.opponent || fallback;
-}
-
-function urlOf(item) {
-  return item.videoUrl || item.videoURL || item.video || item.url || "";
-}
-
-function dateOf(value) {
-  if (!value) return "";
-  const d = new Date(String(value).length === 10 ? value+"T12:00:00" : value);
-  return Number.isNaN(d.getTime()) ? String(value) :
-    d.toLocaleDateString(undefined,{month:"short",day:"numeric",year:"numeric"});
-}
-
-function filter(items) {
-  if (!searchTerm) return items;
-  return items.filter(x => [
-    x.title,x.name,x.opponent,x.description,x.summary,x.season,x.date,x.score
-  ].join(" ").toLowerCase().includes(searchTerm.toLowerCase()));
 }
 
 function emptyState(title, message) {
@@ -514,7 +574,7 @@ function homePage() {
 
   <section class="section">
     <div class="section-head">
-      <div><h2 class="section-title">Games</h2><p class="section-subtitle">Relive the matchups.</p></div>
+      <div><h2 class="section-title">Games</h2><p class="section-subtitle">Newest seasons first.</p></div>
       <button class="text-link" data-go="games">Browse all games →</button>
     </div>
     <div class="grid">${games.length
@@ -524,7 +584,7 @@ function homePage() {
 
   <section class="section">
     <div class="section-head">
-      <div><h2 class="section-title">Highlights</h2><p class="section-subtitle">The plays worth watching again.</p></div>
+      <div><h2 class="section-title">Highlights</h2><p class="section-subtitle">Newest seasons first.</p></div>
       <button class="text-link" data-go="highlights">Browse all highlights →</button>
     </div>
     <div class="grid">${highlights.length
@@ -538,14 +598,14 @@ function listPage(type) {
   const items = isGame ? filter(content.games) : filter(content.highlights);
   const heading = isGame ? "Games" : "Highlights";
   const subtitle = isGame
-    ? "Browse the Ohio State football game collection."
-    : "Watch the biggest plays and favorite moments.";
+    ? "Browse games by season, newest first."
+    : "Browse highlights by season, newest first.";
 
   return `<div class="page-heading">
     <h1>${heading}</h1><p>${subtitle}</p>
   </div>
   <div class="section-head">
-    <span class="section-subtitle">${items.length} item${items.length===1?"":"s"}</span>
+    <span class="section-subtitle">${items.length} item${items.length===1?"":"s"} · Newest season first</span>
     <input class="search" id="search" placeholder="Search ${heading.toLowerCase()}…" value="${esc(searchTerm)}">
   </div>
   <div class="grid">${items.length
@@ -595,15 +655,19 @@ function adminPage() {
     </section>
 
     <section class="admin-panel"><h2>Manage games (${content.games.length})</h2>
-      <div class="admin-list">${content.games.length ? content.games.map((x,i)=>`
-        <div class="admin-item"><div><strong>${esc(titleOf(x))}</strong><small>${esc(dateOf(x.date))}</small></div>
-        <button class="btn danger small" data-delete="game" data-index="${i}">Remove</button></div>`).join(""):"<p>No games added yet.</p>"}</div>
+      <div class="admin-list">${content.games.length ? filter(content.games).map(x=>{
+        const i=content.games.indexOf(x);
+        return `<div class="admin-item"><div><strong>${esc(titleOf(x))}</strong><small>${esc(x.season || getYear(x) || "Season unknown")} · ${esc(dateOf(x.date))}</small></div>
+        <button class="btn danger small" data-delete="game" data-index="${i}">Remove</button></div>`;
+      }).join(""):"<p>No games added yet.</p>"}</div>
     </section>
 
     <section class="admin-panel"><h2>Manage highlights (${content.highlights.length})</h2>
-      <div class="admin-list">${content.highlights.length ? content.highlights.map((x,i)=>`
-        <div class="admin-item"><div><strong>${esc(titleOf(x))}</strong><small>${esc(dateOf(x.date))}</small></div>
-        <button class="btn danger small" data-delete="highlight" data-index="${i}">Remove</button></div>`).join(""):"<p>No highlights added yet.</p>"}</div>
+      <div class="admin-list">${content.highlights.length ? filter(content.highlights).map(x=>{
+        const i=content.highlights.indexOf(x);
+        return `<div class="admin-item"><div><strong>${esc(titleOf(x))}</strong><small>${esc(x.season || getYear(x) || "Season unknown")} · ${esc(dateOf(x.date))}</small></div>
+        <button class="btn danger small" data-delete="highlight" data-index="${i}">Remove</button></div>`;
+      }).join(""):"<p>No highlights added yet.</p>"}</div>
     </section>
     <button class="btn secondary" id="logout">Sign out</button>`;
 }
@@ -698,11 +762,14 @@ function bindEvents() {
   if(gameForm)gameForm.addEventListener("submit",async e=>{
     e.preventDefault();
     if(!isAdmin)return;
+
     const videoUrl=document.getElementById("gv").value.trim();
     if(videoUrl&&!videoInfo(videoUrl)){
-      notify("Use a valid HTTPS YouTube, Vimeo, or direct MP4/WebM/Ogg video URL.","error");return;
+      notify("Use a valid HTTPS YouTube, Vimeo, or direct MP4/WebM/Ogg video URL.","error");
+      return;
     }
-    content.games.unshift({
+
+    content.games.push({
       id:makeId(),
       title:document.getElementById("gt").value.trim(),
       opponent:document.getElementById("go").value.trim(),
@@ -712,6 +779,7 @@ function bindEvents() {
       description:document.getElementById("gdesc").value.trim(),
       videoUrl
     });
+
     await saveContent();
   });
 
@@ -719,17 +787,21 @@ function bindEvents() {
   if(highlightForm)highlightForm.addEventListener("submit",async e=>{
     e.preventDefault();
     if(!isAdmin)return;
+
     const videoUrl=document.getElementById("hv").value.trim();
     if(!videoInfo(videoUrl)){
-      notify("Enter a valid HTTPS YouTube, Vimeo, or direct video URL.","error");return;
+      notify("Enter a valid HTTPS YouTube, Vimeo, or direct video URL.","error");
+      return;
     }
-    content.highlights.unshift({
+
+    content.highlights.push({
       id:makeId(),
       title:document.getElementById("ht").value.trim(),
       date:document.getElementById("hd").value,
       description:document.getElementById("hdesc").value.trim(),
       videoUrl
     });
+
     await saveContent();
   });
 }
