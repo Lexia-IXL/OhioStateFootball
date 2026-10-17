@@ -6,6 +6,7 @@
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <meta name="theme-color" content="#111111">
 <title>Buckeye Vault — Ohio State Football</title>
+
 <style>
 :root {
   --bg:#101010;
@@ -16,226 +17,413 @@
   --red-light:#e02028;
   --text:#f7f7f7;
   --muted:#a3a3a3;
-  --gold:#e5bd65;
 }
-*{box-sizing:border-box}
-body{
-  margin:0;background:var(--bg);color:var(--text);
+* { box-sizing:border-box; }
+body {
+  margin:0;
+  background:var(--bg);
+  color:var(--text);
   font-family:Inter,Arial,Helvetica,sans-serif;
-  -webkit-font-smoothing:antialiased
+  -webkit-font-smoothing:antialiased;
 }
-button,input,textarea,select{font:inherit}
-button,a{ -webkit-tap-highlight-color:transparent }
-a{color:inherit}
-button{cursor:pointer}
-header{
-  height:72px;background:#111;border-bottom:1px solid #292929;
-  position:sticky;top:0;z-index:20
+button,input,textarea,select { font:inherit; }
+button,a { -webkit-tap-highlight-color:transparent; }
+a { color:inherit; }
+button { cursor:pointer; }
+
+header {
+  height:72px;
+  background:#111;
+  border-bottom:1px solid #292929;
+  position:sticky;
+  top:0;
+  z-index:20;
 }
-.header-inner{
-  height:100%;max-width:1180px;padding:0 24px;margin:auto;
-  display:flex;align-items:center;justify-content:space-between;gap:24px
+.header-inner {
+  height:100%;
+  max-width:1180px;
+  padding:0 24px;
+  margin:auto;
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  gap:24px;
 }
-.brand{display:flex;align-items:center;gap:11px;text-decoration:none}
-.brand-mark{
-  height:39px;width:39px;border-radius:9px;background:var(--red);
-  display:grid;place-items:center;font-weight:900;font-size:14px;
-  letter-spacing:-1px;box-shadow:0 3px 15px #bb00002a
+.brand {
+  display:flex;
+  align-items:center;
+  gap:11px;
+  text-decoration:none;
 }
-.brand-name{font-size:17px;font-weight:800;letter-spacing:-.5px}
-.brand-sub{font-size:11px;color:#999;margin-top:4px}
-nav{display:flex;align-items:center;gap:6px}
-.nav-btn{
-  border:0;background:transparent;color:#aaa;padding:10px 13px;
-  border-radius:7px;font-size:13px;font-weight:600
+.brand-mark {
+  height:39px;
+  width:39px;
+  border-radius:9px;
+  background:var(--red);
+  display:grid;
+  place-items:center;
+  font-weight:900;
+  font-size:14px;
+  letter-spacing:-1px;
+  box-shadow:0 3px 15px #bb00002a;
 }
-.nav-btn:hover,.nav-btn.active{color:#fff;background:#292929}
-.nav-btn.signin{background:var(--red);color:white;margin-left:5px}
-.nav-btn.signin:hover{background:#d00000}
-main{max-width:1180px;margin:auto;padding:27px 24px 70px}
-.hero{
-  min-height:365px;border-radius:13px;overflow:hidden;position:relative;
-  display:flex;align-items:center;border:1px solid #333;
+.brand-name { font-size:17px; font-weight:800; letter-spacing:-.5px; }
+.brand-sub { font-size:11px; color:#999; margin-top:4px; }
+nav { display:flex; align-items:center; gap:6px; }
+.nav-btn {
+  border:0;
+  background:transparent;
+  color:#aaa;
+  padding:10px 13px;
+  border-radius:7px;
+  font-size:13px;
+  font-weight:600;
+}
+.nav-btn:hover,.nav-btn.active { color:#fff; background:#292929; }
+.nav-btn.signin { background:var(--red); color:white; margin-left:5px; }
+.nav-btn.signin:hover { background:#d00000; }
+
+main { max-width:1180px; margin:auto; padding:27px 24px 70px; }
+.hero {
+  min-height:365px;
+  border-radius:13px;
+  overflow:hidden;
+  position:relative;
+  display:flex;
+  align-items:center;
+  border:1px solid #333;
   background:
     linear-gradient(90deg,rgba(12,12,12,.97) 0%,rgba(15,15,15,.84) 43%,rgba(15,15,15,.2) 100%),
     linear-gradient(0deg,rgba(10,10,10,.62),transparent 70%),
     url("https://images.unsplash.com/photo-1508098682722-e99c43a406b2?auto=format&fit=crop&w=1800&q=85") center 48%/cover,
     #242424;
 }
-.hero:after{
-  content:"";position:absolute;inset:0;pointer-events:none;
-  background:linear-gradient(120deg,transparent 60%,#bb000018)
+.hero:after {
+  content:"";
+  position:absolute;
+  inset:0;
+  pointer-events:none;
+  background:linear-gradient(120deg,transparent 60%,#bb000018);
 }
-.hero-content{position:relative;z-index:1;padding:42px;max-width:620px}
-.eyebrow{
-  color:#ff6868;font-size:11px;font-weight:800;letter-spacing:2px;
-  text-transform:uppercase;display:flex;align-items:center;gap:9px
+.hero-content { position:relative; z-index:1; padding:42px; max-width:620px; }
+.eyebrow {
+  color:#ff6868;
+  font-size:11px;
+  font-weight:800;
+  letter-spacing:2px;
+  text-transform:uppercase;
+  display:flex;
+  align-items:center;
+  gap:9px;
 }
-.eyebrow:before{content:"";height:2px;width:22px;background:var(--red-light)}
-.hero h1{
-  font-size:clamp(38px,6vw,62px);line-height:1.02;
-  letter-spacing:-2.6px;margin:19px 0 15px;font-weight:900
+.eyebrow:before { content:""; height:2px; width:22px; background:var(--red-light); }
+.hero h1 {
+  font-size:clamp(38px,6vw,62px);
+  line-height:1.02;
+  letter-spacing:-2.6px;
+  margin:19px 0 15px;
+  font-weight:900;
 }
-.hero h1 span{color:#ff4545}
-.hero p{font-size:15px;line-height:1.8;color:#c4c4c4;max-width:440px;margin:0 0 24px}
-.actions{display:flex;gap:11px;flex-wrap:wrap}
-.btn{
-  display:inline-flex;justify-content:center;align-items:center;gap:8px;
-  background:var(--red);color:white;border:1px solid var(--red);
-  border-radius:7px;padding:11px 16px;font-size:13px;font-weight:700;
-  text-decoration:none;transition:background .15s,border-color .15s
+.hero h1 span { color:#ff4545; }
+.hero p {
+  font-size:15px;
+  line-height:1.8;
+  color:#c4c4c4;
+  max-width:440px;
+  margin:0 0 24px;
 }
-.btn:hover{background:#d40000;border-color:#d40000}
-.btn.secondary{background:#202020;border-color:#444;color:#eee}
-.btn.secondary:hover{background:#303030}
-.btn.danger{background:#581c1c;border-color:#713030}
-.btn.small{padding:8px 10px;font-size:12px}
-.stats{
-  display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin:18px 0 34px
+.actions { display:flex; gap:11px; flex-wrap:wrap; }
+.btn {
+  display:inline-flex;
+  justify-content:center;
+  align-items:center;
+  gap:8px;
+  background:var(--red);
+  color:white;
+  border:1px solid var(--red);
+  border-radius:7px;
+  padding:11px 16px;
+  font-size:13px;
+  font-weight:700;
+  text-decoration:none;
+  transition:background .15s,border-color .15s;
 }
-.stat{
-  background:#171717;border:1px solid #292929;border-radius:9px;
-  padding:17px 20px;display:flex;align-items:center;gap:13px
+.btn:hover { background:#d40000; border-color:#d40000; }
+.btn.secondary { background:#202020; border-color:#444; color:#eee; }
+.btn.secondary:hover { background:#303030; }
+.btn.danger { background:#581c1c; border-color:#713030; }
+.btn.small { padding:8px 10px; font-size:12px; }
+
+.stats {
+  display:grid;
+  grid-template-columns:repeat(3,1fr);
+  gap:12px;
+  margin:18px 0 34px;
 }
-.stat-icon{
-  width:39px;height:39px;display:grid;place-items:center;
-  background:#360d0d;color:#ff7070;border-radius:8px;font-size:19px
+.stat {
+  background:#171717;
+  border:1px solid #292929;
+  border-radius:9px;
+  padding:17px 20px;
+  display:flex;
+  align-items:center;
+  gap:13px;
 }
-.stat strong{font-size:21px;display:block}
-.stat span{font-size:12px;color:#999;display:block;margin-top:4px}
-.section{margin-top:35px}
-.section-head{
-  display:flex;align-items:center;justify-content:space-between;
-  gap:15px;flex-wrap:wrap;margin-bottom:17px
+.stat-icon {
+  width:39px;
+  height:39px;
+  display:grid;
+  place-items:center;
+  background:#360d0d;
+  color:#ff7070;
+  border-radius:8px;
+  font-size:19px;
 }
-.section-title{font-size:22px;letter-spacing:-.6px;margin:0;font-weight:800}
-.section-subtitle{font-size:12px;color:#929292;margin:6px 0 0}
-.text-link{
-  border:0;background:transparent;color:#ff6262;font-size:13px;
-  font-weight:700;padding:8px 0
+.stat strong { font-size:21px; display:block; }
+.stat span { font-size:12px; color:#999; display:block; margin-top:4px; }
+
+.section { margin-top:35px; }
+.section-head {
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  gap:15px;
+  flex-wrap:wrap;
+  margin-bottom:17px;
 }
-.text-link:hover{color:#ff9393}
-.grid{
-  display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:17px
+.section-title { font-size:22px; letter-spacing:-.6px; margin:0; font-weight:800; }
+.section-subtitle { font-size:12px; color:#929292; margin:6px 0 0; }
+.text-link {
+  border:0;
+  background:transparent;
+  color:#ff6262;
+  font-size:13px;
+  font-weight:700;
+  padding:8px 0;
 }
-.card{
-  min-width:0;background:var(--surface);border:1px solid var(--line);
-  border-radius:10px;overflow:hidden;transition:border-color .18s,transform .18s
+.text-link:hover { color:#ff9393; }
+
+.grid {
+  display:grid;
+  grid-template-columns:repeat(3,minmax(0,1fr));
+  gap:17px;
 }
-.card:hover{border-color:#555;transform:translateY(-2px)}
-.video-wrap{
-  position:relative;width:100%;aspect-ratio:16/9;background:#080808;
-  overflow:hidden;border-bottom:1px solid #292929
+.card {
+  min-width:0;
+  background:var(--surface);
+  border:1px solid var(--line);
+  border-radius:10px;
+  overflow:hidden;
+  transition:border-color .18s,transform .18s;
 }
-.video-wrap iframe,.video-wrap video{
-  position:absolute;inset:0;width:100%;height:100%;border:0;display:block
+.card:hover { border-color:#555; transform:translateY(-2px); }
+.video-wrap {
+  position:relative;
+  width:100%;
+  aspect-ratio:16/9;
+  background:#080808;
+  overflow:hidden;
+  border-bottom:1px solid #292929;
 }
-.video-empty{
-  position:absolute;inset:0;display:flex;flex-direction:column;
-  align-items:center;justify-content:center;gap:10px;
+.video-wrap iframe,.video-wrap video {
+  position:absolute;
+  inset:0;
+  width:100%;
+  height:100%;
+  border:0;
+  display:block;
+}
+.video-empty {
+  position:absolute;
+  inset:0;
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+  justify-content:center;
+  gap:10px;
   background:radial-gradient(ellipse at 50% 100%,#470808,#111 72%);
-  color:#aaa;font-size:12px;text-align:center;padding:15px
+  color:#aaa;
+  font-size:12px;
+  text-align:center;
+  padding:15px;
 }
-.play{
-  width:47px;height:47px;border:1px solid #ffffff38;background:#bb0000;
-  color:white;border-radius:50%;display:grid;place-items:center;
-  font-size:17px;padding-left:3px;box-shadow:0 4px 22px #0007
+.play {
+  width:47px;
+  height:47px;
+  border:1px solid #ffffff38;
+  background:#bb0000;
+  color:white;
+  border-radius:50%;
+  display:grid;
+  place-items:center;
+  font-size:17px;
+  padding-left:3px;
+  box-shadow:0 4px 22px #0007;
 }
-.card-body{padding:15px 16px 17px}
-.card-top{display:flex;justify-content:space-between;gap:8px;align-items:center;margin-bottom:10px}
-.tag{
-  display:inline-flex;align-items:center;background:#341010;
-  border:1px solid #592020;color:#ff8888;border-radius:4px;
-  padding:4px 7px;font-size:10px;font-weight:800;text-transform:uppercase;
-  letter-spacing:.5px
+.card-body { padding:15px 16px 17px; }
+.card-top {
+  display:flex;
+  justify-content:space-between;
+  gap:8px;
+  align-items:center;
+  margin-bottom:10px;
 }
-.card-date{font-size:11px;color:#888}
-.card h3{font-size:16px;line-height:1.4;margin:0 0 7px;overflow-wrap:anywhere}
-.card-desc{
-  color:#999;font-size:12px;line-height:1.65;margin:0;
-  display:-webkit-box;-webkit-line-clamp:3;-webkit-box-orient:vertical;overflow:hidden
+.tag {
+  display:inline-flex;
+  align-items:center;
+  background:#341010;
+  border:1px solid #592020;
+  color:#ff8888;
+  border-radius:4px;
+  padding:4px 7px;
+  font-size:10px;
+  font-weight:800;
+  text-transform:uppercase;
+  letter-spacing:.5px;
 }
-.card-footer{display:flex;justify-content:space-between;align-items:center;gap:8px;margin-top:14px}
-.card-footer .opponent{font-size:11px;color:#b6b6b6}
-.search{
-  width:100%;max-width:300px;background:#181818;border:1px solid #353535;
-  border-radius:7px;padding:11px 13px;color:white;outline:none;font-size:13px
+.card-date { font-size:11px; color:#888; text-align:right; }
+.card h3 { font-size:16px; line-height:1.4; margin:0 0 7px; overflow-wrap:anywhere; }
+.card-desc {
+  color:#999;
+  font-size:12px;
+  line-height:1.65;
+  margin:0;
+  display:-webkit-box;
+  -webkit-line-clamp:3;
+  -webkit-box-orient:vertical;
+  overflow:hidden;
 }
-.search:focus,.field input:focus,.field textarea:focus{border-color:#9d3434}
-.empty{
-  grid-column:1/-1;padding:45px 20px;text-align:center;
-  border:1px dashed #373737;border-radius:9px;background:#151515
+.card-footer {
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  gap:8px;
+  margin-top:14px;
 }
-.empty-icon{font-size:27px;margin-bottom:10px}
-.empty h3{font-size:16px;margin:0 0 8px}
-.empty p{font-size:12px;color:#999;margin:0;line-height:1.7}
-.page-heading{padding:18px 0 27px}
-.page-heading h1{font-size:32px;letter-spacing:-1px;margin:0 0 8px}
-.page-heading p{font-size:13px;color:#999;margin:0}
-.admin-panel{
-  background:#171717;border:1px solid #303030;border-radius:10px;
-  padding:22px;margin-bottom:17px
+.card-footer .opponent { font-size:11px; color:#b6b6b6; }
+
+.search {
+  width:100%;
+  max-width:300px;
+  background:#181818;
+  border:1px solid #353535;
+  border-radius:7px;
+  padding:11px 13px;
+  color:white;
+  outline:none;
+  font-size:13px;
 }
-.admin-panel h2{font-size:17px;margin:0 0 7px}
-.admin-panel>p{font-size:12px;color:#999;line-height:1.6}
-.form-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:15px}
-.field{display:flex;flex-direction:column;gap:7px;min-width:0}
-.field.full{grid-column:1/-1}
-.field label{font-size:12px;font-weight:700;color:#ccc}
-.field input,.field textarea,.field select{
-  background:#101010;border:1px solid #383838;border-radius:6px;
-  color:white;padding:11px 12px;width:100%;min-width:0;font-size:13px
+.search:focus,.field input:focus,.field textarea:focus { border-color:#9d3434; }
+.empty {
+  grid-column:1/-1;
+  padding:45px 20px;
+  text-align:center;
+  border:1px dashed #373737;
+  border-radius:9px;
+  background:#151515;
 }
-.field textarea{min-height:80px;resize:vertical}
-.form-actions{display:flex;gap:9px;flex-wrap:wrap;margin-top:16px}
-.admin-list{display:grid;gap:8px;margin-top:14px}
-.admin-item{
-  background:#101010;border:1px solid #303030;border-radius:7px;
-  padding:12px;display:flex;justify-content:space-between;
-  align-items:center;gap:12px;flex-wrap:wrap
+.empty-icon { font-size:27px; margin-bottom:10px; }
+.empty h3 { font-size:16px; margin:0 0 8px; }
+.empty p { font-size:12px; color:#999; margin:0; line-height:1.7; }
+.page-heading { padding:18px 0 27px; }
+.page-heading h1 { font-size:32px; letter-spacing:-1px; margin:0 0 8px; }
+.page-heading p { font-size:13px; color:#999; margin:0; }
+
+.admin-panel {
+  background:#171717;
+  border:1px solid #303030;
+  border-radius:10px;
+  padding:22px;
+  margin-bottom:17px;
 }
-.admin-item strong{font-size:13px}
-.admin-item small{display:block;color:#888;margin-top:5px}
-.notice{padding:12px 14px;margin:0 0 16px;border:1px solid #444;border-radius:7px;background:#191919;font-size:13px;overflow-wrap:anywhere}
-.notice.error{border-color:#8a3333;color:#ffaaaa}
-.notice.success{border-color:#347647;color:#b6f3c4}
-.login-box{max-width:410px;margin:45px auto}
-.login-box .admin-panel{padding:26px}
-footer{border-top:1px solid #292929;padding:27px 20px;text-align:center;color:#777;font-size:11px;line-height:1.8}
-footer strong{color:#aaa}
-.hidden{display:none!important}
-.loading{padding:50px;text-align:center;color:#999}
-@media(max-width:850px){
-  .grid{grid-template-columns:repeat(2,minmax(0,1fr))}
-  .hero{min-height:330px}
+.admin-panel h2 { font-size:17px; margin:0 0 7px; }
+.admin-panel>p { font-size:12px; color:#999; line-height:1.6; }
+.form-grid { display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); gap:15px; }
+.field { display:flex; flex-direction:column; gap:7px; min-width:0; }
+.field.full { grid-column:1/-1; }
+.field label { font-size:12px; font-weight:700; color:#ccc; }
+.field input,.field textarea,.field select {
+  background:#101010;
+  border:1px solid #383838;
+  border-radius:6px;
+  color:white;
+  padding:11px 12px;
+  width:100%;
+  min-width:0;
+  font-size:13px;
 }
-@media(max-width:580px){
-  header{height:auto;position:relative}
-  .header-inner{padding:13px 15px;flex-wrap:wrap;gap:13px}
-  .brand-mark{width:35px;height:35px}
-  .brand-name{font-size:15px}
-  nav{width:100%;gap:3px}
-  .nav-btn{flex:1;padding:10px 5px;font-size:11px}
-  main{padding:17px 14px 45px}
-  .hero{min-height:360px;background-position:58% center}
-  .hero-content{padding:25px 20px}
-  .hero h1{font-size:43px;letter-spacing:-1.8px}
-  .hero p{font-size:13px}
-  .stats{gap:7px;margin:12px 0 28px}
-  .stat{padding:12px 9px;gap:7px;display:block}
-  .stat-icon{width:31px;height:31px;margin-bottom:8px}
-  .stat strong{font-size:18px}
-  .stat span{font-size:10px}
-  .grid{grid-template-columns:1fr;gap:13px}
-  .section{margin-top:29px}
-  .section-title{font-size:20px}
-  .search{max-width:none}
-  .form-grid{grid-template-columns:1fr}
-  .field.full{grid-column:auto}
-  .admin-panel{padding:16px}
+.field textarea { min-height:80px; resize:vertical; }
+.form-actions { display:flex; gap:9px; flex-wrap:wrap; margin-top:16px; }
+.admin-list { display:grid; gap:8px; margin-top:14px; }
+.admin-item {
+  background:#101010;
+  border:1px solid #303030;
+  border-radius:7px;
+  padding:12px;
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  gap:12px;
+  flex-wrap:wrap;
+}
+.admin-item strong { font-size:13px; }
+.admin-item small { display:block; color:#888; margin-top:5px; }
+.notice {
+  padding:12px 14px;
+  margin:0 0 16px;
+  border:1px solid #444;
+  border-radius:7px;
+  background:#191919;
+  font-size:13px;
+  overflow-wrap:anywhere;
+}
+.notice.error { border-color:#8a3333; color:#ffaaaa; }
+.notice.success { border-color:#347647; color:#b6f3c4; }
+.login-box { max-width:410px; margin:45px auto; }
+.login-box .admin-panel { padding:26px; }
+footer {
+  border-top:1px solid #292929;
+  padding:27px 20px;
+  text-align:center;
+  color:#777;
+  font-size:11px;
+  line-height:1.8;
+}
+footer strong { color:#aaa; }
+.loading { padding:50px; text-align:center; color:#999; }
+
+@media(max-width:850px) {
+  .grid { grid-template-columns:repeat(2,minmax(0,1fr)); }
+  .hero { min-height:330px; }
+}
+@media(max-width:580px) {
+  header { height:auto; position:relative; }
+  .header-inner { padding:13px 15px; flex-wrap:wrap; gap:13px; }
+  .brand-mark { width:35px; height:35px; }
+  .brand-name { font-size:15px; }
+  nav { width:100%; gap:3px; }
+  .nav-btn { flex:1; padding:10px 5px; font-size:11px; }
+  main { padding:17px 14px 45px; }
+  .hero { min-height:360px; background-position:58% center; }
+  .hero-content { padding:25px 20px; }
+  .hero h1 { font-size:43px; letter-spacing:-1.8px; }
+  .hero p { font-size:13px; }
+  .stats { gap:7px; margin:12px 0 28px; }
+  .stat { padding:12px 9px; gap:7px; display:block; }
+  .stat-icon { width:31px; height:31px; margin-bottom:8px; }
+  .stat strong { font-size:18px; }
+  .stat span { font-size:10px; }
+  .grid { grid-template-columns:1fr; gap:13px; }
+  .section { margin-top:29px; }
+  .section-title { font-size:20px; }
+  .search { max-width:none; }
+  .form-grid { grid-template-columns:1fr; }
+  .field.full { grid-column:auto; }
+  .admin-panel { padding:16px; }
 }
 </style>
 </head>
+
 <body>
 <header>
   <div class="header-inner">
@@ -271,7 +459,7 @@ footer strong{color:#aaa}
 const app = document.getElementById("app");
 const statusBox = document.getElementById("status");
 
-let content = {games:[], highlights:[]};
+let content = { games: [], highlights: [] };
 let isAdmin = false;
 let currentPage = "home";
 let searchTerm = "";
@@ -279,13 +467,18 @@ let loading = true;
 
 function esc(value) {
   return String(value ?? "").replace(/[&<>"']/g, c => ({
-    "&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"
+    "&":"&amp;",
+    "<":"&lt;",
+    ">":"&gt;",
+    '"':"&quot;",
+    "'":"&#39;"
   })[c]);
 }
 
 function notify(message, type="") {
   statusBox.innerHTML = message
-    ? `<div class="notice ${type}">${esc(message)}</div>` : "";
+    ? `<div class="notice ${type}">${esc(message)}</div>`
+    : "";
 }
 
 async function api(path, options={}) {
@@ -300,12 +493,17 @@ async function api(path, options={}) {
 
   const raw = await response.text();
   let data = {};
-  try { data = raw ? JSON.parse(raw) : {}; }
-  catch { data = {message:raw}; }
+
+  try {
+    data = raw ? JSON.parse(raw) : {};
+  } catch {
+    data = { message:raw };
+  }
 
   if (!response.ok) {
     throw new Error(data.error || data.message || `Request failed (${response.status})`);
   }
+
   return data;
 }
 
@@ -315,6 +513,7 @@ async function loadContent() {
 
   try {
     const data = await api("/api/content");
+
     content = {
       games:Array.isArray(data.games) ? data.games : [],
       highlights:Array.isArray(data.highlights) ? data.highlights : []
@@ -364,8 +563,13 @@ function videoInfo(raw) {
     const path = u.pathname;
     let id = "";
 
-    if (["youtube.com","www.youtube.com","m.youtube.com",
-         "youtube-nocookie.com","www.youtube-nocookie.com"].includes(host)) {
+    if ([
+      "youtube.com",
+      "www.youtube.com",
+      "m.youtube.com",
+      "youtube-nocookie.com",
+      "www.youtube-nocookie.com"
+    ].includes(host)) {
       id = u.searchParams.get("v") ||
         path.match(/^\/(?:embed|shorts|live)\/([^/?]+)/)?.[1] || "";
 
@@ -376,14 +580,21 @@ function videoInfo(raw) {
 
     if (host === "youtu.be" || host === "www.youtu.be") {
       id = path.split("/").filter(Boolean)[0] || "";
+
       return /^[\w-]{11}$/.test(id)
         ? {type:"embed",src:"https://www.youtube-nocookie.com/embed/"+id}
         : null;
     }
 
-    if (["vimeo.com","www.vimeo.com","player.vimeo.com"].includes(host)) {
+    if ([
+      "vimeo.com",
+      "www.vimeo.com",
+      "player.vimeo.com"
+    ].includes(host)) {
       const match = path.match(/\/(?:video\/)?(\d+)/);
-      return match ? {type:"embed",src:"https://player.vimeo.com/video/"+match[1]} : null;
+      return match
+        ? {type:"embed",src:"https://player.vimeo.com/video/"+match[1]}
+        : null;
     }
 
     if (/\.(mp4|webm|ogg)$/i.test(path)) {
@@ -400,16 +611,20 @@ function player(raw, title) {
   const v = videoInfo(raw);
 
   if (!v) {
-    return `<div class="video-wrap"><div class="video-empty">
-      <div class="play">▶</div><span>Video coming soon</span>
-    </div></div>`;
+    return `<div class="video-wrap">
+      <div class="video-empty">
+        <div class="play">▶</div>
+        <span>Video coming soon</span>
+      </div>
+    </div>`;
   }
 
   if (v.type === "embed") {
     return `<div class="video-wrap">
       <iframe src="${esc(v.src)}" title="${esc(title)}"
-        loading="lazy" allow="accelerometer; encrypted-media; gyroscope;
-        picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin"
+        loading="lazy"
+        allow="accelerometer; encrypted-media; gyroscope; picture-in-picture; web-share"
+        referrerpolicy="strict-origin-when-cross-origin"
         allowfullscreen></iframe>
     </div>`;
   }
@@ -423,10 +638,13 @@ function player(raw, title) {
     </div>`;
   }
 
-  return `<div class="video-wrap"><div class="video-empty">
-    <div class="play">↗</div><span>This source does not support embedded playback.</span>
-    <a class="btn small" href="${esc(v.src)}" target="_blank" rel="noopener noreferrer">Open source</a>
-  </div></div>`;
+  return `<div class="video-wrap">
+    <div class="video-empty">
+      <div class="play">↗</div>
+      <span>This source does not support embedded playback.</span>
+      <a class="btn small" href="${esc(v.src)}" target="_blank" rel="noopener noreferrer">Open source</a>
+    </div>
+  </div>`;
 }
 
 function titleOf(item, fallback="Ohio State Football") {
@@ -439,21 +657,39 @@ function urlOf(item) {
 
 function dateOf(value) {
   if (!value) return "";
+
   const d = new Date(String(value).length === 10 ? value+"T12:00:00" : value);
-  return Number.isNaN(d.getTime()) ? String(value) :
-    d.toLocaleDateString(undefined,{month:"short",day:"numeric",year:"numeric"});
+
+  return Number.isNaN(d.getTime())
+    ? String(value)
+    : d.toLocaleDateString(undefined,{
+        month:"short",
+        day:"numeric",
+        year:"numeric"
+      });
 }
 
 function filter(items) {
   if (!searchTerm) return items;
+
   return items.filter(x => [
-    x.title,x.name,x.opponent,x.description,x.summary,x.season,x.date,x.score
+    x.title,
+    x.name,
+    x.opponent,
+    x.description,
+    x.summary,
+    x.season,
+    x.date,
+    x.score
   ].join(" ").toLowerCase().includes(searchTerm.toLowerCase()));
 }
 
 function emptyState(title, message) {
-  return `<div class="empty"><div class="empty-icon">🏈</div>
-    <h3>${esc(title)}</h3><p>${esc(message)}</p></div>`;
+  return `<div class="empty">
+    <div class="empty-icon">🏈</div>
+    <h3>${esc(title)}</h3>
+    <p>${esc(message)}</p>
+  </div>`;
 }
 
 function card(item, type, index) {
@@ -461,25 +697,39 @@ function card(item, type, index) {
   const date = dateOf(item.date);
   const description = item.description || item.summary || "";
   const tag = type === "game" ? "Full Game" : "Highlight";
+  const dateLabel = date || (item.season ? "Season " + item.season : "");
 
   return `<article class="card">
     ${player(urlOf(item),title)}
     <div class="card-body">
       <div class="card-top">
         <span class="tag">${tag}</span>
-        <span class="card-date">${esc(date)}</span>
+        <span class="card-date">${esc(dateLabel)}</span>
       </div>
+
       <h3>${esc(title)}</h3>
+
       ${type === "game" && item.opponent
-        ? `<p class="card-desc">Opponent: ${esc(item.opponent)}</p>` : ""}
+        ? `<p class="card-desc">Opponent: ${esc(item.opponent)}</p>`
+        : ""}
+
       ${type === "game" && item.score
-        ? `<p class="card-desc">Score: ${esc(item.score)}</p>` : ""}
-      ${description ? `<p class="card-desc" style="margin-top:8px">${esc(description)}</p>` : ""}
+        ? `<p class="card-desc">Score: ${esc(item.score)}</p>`
+        : ""}
+
+      ${description
+        ? `<p class="card-desc" style="margin-top:8px">${esc(description)}</p>`
+        : ""}
+
       ${type === "game" && item.season
-        ? `<div class="card-footer"><span class="opponent">Season ${esc(item.season)}</span></div>` : ""}
-      ${isAdmin ? `<div class="card-footer">
-        <button class="btn danger small" data-delete="${type}" data-index="${index}">Remove</button>
-      </div>` : ""}
+        ? `<div class="card-footer"><span class="opponent">Season ${esc(item.season)}</span></div>`
+        : ""}
+
+      ${isAdmin
+        ? `<div class="card-footer">
+             <button class="btn danger small" data-delete="${type}" data-index="${index}">Remove</button>
+           </div>`
+        : ""}
     </div>
   </article>`;
 }
@@ -501,20 +751,26 @@ function homePage() {
   </section>
 
   <div class="stats">
-    <div class="stat"><div class="stat-icon">🏈</div><div>
-      <strong>${content.games.length}</strong><span>Games in the vault</span>
-    </div></div>
-    <div class="stat"><div class="stat-icon">▶</div><div>
-      <strong>${content.highlights.length}</strong><span>Highlights saved</span>
-    </div></div>
-    <div class="stat"><div class="stat-icon">O</div><div>
-      <strong>Go Bucks</strong><span>Scarlet and gray, always</span>
-    </div></div>
+    <div class="stat">
+      <div class="stat-icon">🏈</div>
+      <div><strong>${content.games.length}</strong><span>Games in the vault</span></div>
+    </div>
+    <div class="stat">
+      <div class="stat-icon">▶</div>
+      <div><strong>${content.highlights.length}</strong><span>Highlights saved</span></div>
+    </div>
+    <div class="stat">
+      <div class="stat-icon">O</div>
+      <div><strong>Go Bucks</strong><span>Scarlet and gray, always</span></div>
+    </div>
   </div>
 
   <section class="section">
     <div class="section-head">
-      <div><h2 class="section-title">Games</h2><p class="section-subtitle">Relive the matchups.</p></div>
+      <div>
+        <h2 class="section-title">Games</h2>
+        <p class="section-subtitle">Relive the matchups.</p>
+      </div>
       <button class="text-link" data-go="games">Browse all games →</button>
     </div>
     <div class="grid">${games.length
@@ -524,7 +780,10 @@ function homePage() {
 
   <section class="section">
     <div class="section-head">
-      <div><h2 class="section-title">Highlights</h2><p class="section-subtitle">The plays worth watching again.</p></div>
+      <div>
+        <h2 class="section-title">Highlights</h2>
+        <p class="section-subtitle">The plays worth watching again.</p>
+      </div>
       <button class="text-link" data-go="highlights">Browse all highlights →</button>
     </div>
     <div class="grid">${highlights.length
@@ -542,12 +801,15 @@ function listPage(type) {
     : "Watch the biggest plays and favorite moments.";
 
   return `<div class="page-heading">
-    <h1>${heading}</h1><p>${subtitle}</p>
+    <h1>${heading}</h1>
+    <p>${subtitle}</p>
   </div>
+
   <div class="section-head">
     <span class="section-subtitle">${items.length} item${items.length===1?"":"s"}</span>
     <input class="search" id="search" placeholder="Search ${heading.toLowerCase()}…" value="${esc(searchTerm)}">
   </div>
+
   <div class="grid">${items.length
     ? items.map(x=>card(x,type,isGame?content.games.indexOf(x):content.highlights.indexOf(x))).join("")
     : emptyState("Nothing here yet",isGame?"No games match your search.":"No highlights match your search.")}</div>`;
@@ -555,61 +817,130 @@ function listPage(type) {
 
 function adminPage() {
   if (!isAdmin) {
-    return `<div class="login-box"><section class="admin-panel">
-      <div class="eyebrow">Restricted area</div>
-      <h2 style="font-size:24px;margin-top:13px">Admin sign in</h2>
-      <p>Sign in to manage games and highlights in Buckeye Vault.</p>
-      <form id="login-form">
-        <div class="field"><label for="password">Admin password</label>
-          <input id="password" type="password" required autocomplete="current-password" placeholder="Enter password">
-        </div>
-        <div class="form-actions"><button class="btn" type="submit">Sign in →</button></div>
-        <div id="login-error"></div>
-      </form>
-    </section></div>`;
+    return `<div class="login-box">
+      <section class="admin-panel">
+        <div class="eyebrow">Restricted area</div>
+        <h2 style="font-size:24px;margin-top:13px">Admin sign in</h2>
+        <p>Sign in to manage games and highlights in Buckeye Vault.</p>
+        <form id="login-form">
+          <div class="field">
+            <label for="password">Admin password</label>
+            <input id="password" type="password" required autocomplete="current-password" placeholder="Enter password">
+          </div>
+          <div class="form-actions">
+            <button class="btn" type="submit">Sign in →</button>
+          </div>
+          <div id="login-error"></div>
+        </form>
+      </section>
+    </div>`;
   }
 
-  return `<div class="page-heading"><h1>Admin dashboard</h1>
-    <p>Add videos, manage games, and maintain your collection.</p></div>
+  return `<div class="page-heading">
+    <h1>Admin dashboard</h1>
+    <p>Add videos, manage games, and maintain your collection.</p>
+  </div>
 
-    <section class="admin-panel"><h2>Add a game</h2>
-      <p>Paste a YouTube or Vimeo link to embed a player. Direct MP4 links are supported too.</p>
-      <form id="game-form"><div class="form-grid">
-        <div class="field"><label for="gt">Game title *</label><input id="gt" required placeholder="Ohio State vs. Michigan"></div>
-        <div class="field"><label for="go">Opponent</label><input id="go" placeholder="Michigan"></div>
-        <div class="field"><label for="gd">Game date</label><input id="gd" type="date"></div>
-        <div class="field"><label for="gs">Season</label><input id="gs" placeholder="2026"></div>
-        <div class="field"><label for="gscore">Score</label><input id="gscore" placeholder="31–20"></div>
-        <div class="field"><label for="gv">Video URL</label><input id="gv" type="url" placeholder="https://www.youtube.com/watch?v=..."></div>
-        <div class="field full"><label for="gdesc">Description</label><textarea id="gdesc" placeholder="Game recap or notes…"></textarea></div>
-      </div><div class="form-actions"><button class="btn" type="submit">＋ Add game</button></div></form>
-    </section>
+  <section class="admin-panel">
+    <h2>Add a game</h2>
+    <p>Paste a YouTube or Vimeo link to embed a player. Direct MP4 links are supported too.</p>
+    <form id="game-form">
+      <div class="form-grid">
+        <div class="field">
+          <label for="gt">Game title *</label>
+          <input id="gt" required placeholder="Ohio State vs. Michigan">
+        </div>
+        <div class="field">
+          <label for="go">Opponent</label>
+          <input id="go" placeholder="Michigan">
+        </div>
+        <div class="field">
+          <label for="gd">Game date</label>
+          <input id="gd" type="date">
+        </div>
+        <div class="field">
+          <label for="gs">Season</label>
+          <input id="gs" placeholder="2026">
+        </div>
+        <div class="field">
+          <label for="gscore">Score</label>
+          <input id="gscore" placeholder="31–20">
+        </div>
+        <div class="field">
+          <label for="gv">Video URL</label>
+          <input id="gv" type="url" placeholder="https://www.youtube.com/watch?v=...">
+        </div>
+        <div class="field full">
+          <label for="gdesc">Description</label>
+          <textarea id="gdesc" placeholder="Game recap or notes…"></textarea>
+        </div>
+      </div>
+      <div class="form-actions">
+        <button class="btn" type="submit">＋ Add game</button>
+      </div>
+    </form>
+  </section>
 
-    <section class="admin-panel"><h2>Add a highlight</h2>
-      <form id="highlight-form"><div class="form-grid">
-        <div class="field"><label for="ht">Highlight title *</label><input id="ht" required placeholder="Game-winning touchdown"></div>
-        <div class="field"><label for="hd">Date</label><input id="hd" type="date"></div>
-        <div class="field full"><label for="hv">Video URL *</label><input id="hv" type="url" required placeholder="https://www.youtube.com/watch?v=..."></div>
-        <div class="field full"><label for="hdesc">Description</label><textarea id="hdesc" placeholder="Describe the play…"></textarea></div>
-      </div><div class="form-actions"><button class="btn" type="submit">＋ Add highlight</button></div></form>
-    </section>
+  <section class="admin-panel">
+    <h2>Add a highlight</h2>
+    <form id="highlight-form">
+      <div class="form-grid">
+        <div class="field">
+          <label for="ht">Highlight title *</label>
+          <input id="ht" required placeholder="Game-winning touchdown">
+        </div>
+        <div class="field">
+          <label for="hd">Date</label>
+          <input id="hd" type="date">
+        </div>
+        <div class="field full">
+          <label for="hv">Video URL *</label>
+          <input id="hv" type="url" required placeholder="https://www.youtube.com/watch?v=...">
+        </div>
+        <div class="field full">
+          <label for="hdesc">Description</label>
+          <textarea id="hdesc" placeholder="Describe the play…"></textarea>
+        </div>
+      </div>
+      <div class="form-actions">
+        <button class="btn" type="submit">＋ Add highlight</button>
+      </div>
+    </form>
+  </section>
 
-    <section class="admin-panel"><h2>Manage games (${content.games.length})</h2>
-      <div class="admin-list">${content.games.length ? content.games.map((x,i)=>`
-        <div class="admin-item"><div><strong>${esc(titleOf(x))}</strong><small>${esc(dateOf(x.date))}</small></div>
-        <button class="btn danger small" data-delete="game" data-index="${i}">Remove</button></div>`).join(""):"<p>No games added yet.</p>"}</div>
-    </section>
+  <section class="admin-panel">
+    <h2>Manage games (${content.games.length})</h2>
+    <div class="admin-list">${content.games.length
+      ? content.games.map((x,i)=>`
+        <div class="admin-item">
+          <div>
+            <strong>${esc(titleOf(x))}</strong>
+            <small>${esc(dateOf(x.date) || (x.season ? "Season " + x.season : ""))}</small>
+          </div>
+          <button class="btn danger small" data-delete="game" data-index="${i}">Remove</button>
+        </div>`).join("")
+      : "<p>No games added yet.</p>"}</div>
+  </section>
 
-    <section class="admin-panel"><h2>Manage highlights (${content.highlights.length})</h2>
-      <div class="admin-list">${content.highlights.length ? content.highlights.map((x,i)=>`
-        <div class="admin-item"><div><strong>${esc(titleOf(x))}</strong><small>${esc(dateOf(x.date))}</small></div>
-        <button class="btn danger small" data-delete="highlight" data-index="${i}">Remove</button></div>`).join(""):"<p>No highlights added yet.</p>"}</div>
-    </section>
-    <button class="btn secondary" id="logout">Sign out</button>`;
+  <section class="admin-panel">
+    <h2>Manage highlights (${content.highlights.length})</h2>
+    <div class="admin-list">${content.highlights.length
+      ? content.highlights.map((x,i)=>`
+        <div class="admin-item">
+          <div>
+            <strong>${esc(titleOf(x))}</strong>
+            <small>${esc(dateOf(x.date) || (x.season ? "Season " + x.season : ""))}</small>
+          </div>
+          <button class="btn danger small" data-delete="highlight" data-index="${i}">Remove</button>
+        </div>`).join("")
+      : "<p>No highlights added yet.</p>"}</div>
+  </section>
+
+  <button class="btn secondary" id="logout">Sign out</button>`;
 }
 
 function render() {
-  document.querySelectorAll("[data-page]").forEach(b=>{
+  document.querySelectorAll("[data-page]").forEach(b => {
     b.classList.toggle("active",b.dataset.page===currentPage);
   });
 
@@ -618,123 +949,161 @@ function render() {
     return;
   }
 
-  if (currentPage==="home") app.innerHTML=homePage();
-  else if (currentPage==="games") app.innerHTML=listPage("game");
-  else if (currentPage==="highlights") app.innerHTML=listPage("highlight");
-  else app.innerHTML=adminPage();
+  if (currentPage === "home") app.innerHTML = homePage();
+  else if (currentPage === "games") app.innerHTML = listPage("game");
+  else if (currentPage === "highlights") app.innerHTML = listPage("highlight");
+  else app.innerHTML = adminPage();
 
   bindEvents();
 }
 
 function navigate(page) {
-  currentPage=page;
-  searchTerm="";
+  currentPage = page;
+  searchTerm = "";
   notify("");
   render();
   window.scrollTo({top:0,behavior:"smooth"});
 }
 
 function makeId() {
-  return crypto.randomUUID ? crypto.randomUUID() :
-    Date.now().toString(36)+Math.random().toString(36).slice(2);
+  return crypto.randomUUID
+    ? crypto.randomUUID()
+    : Date.now().toString(36)+Math.random().toString(36).slice(2);
 }
 
 function bindEvents() {
-  document.querySelectorAll("[data-go]").forEach(b=>{
+  document.querySelectorAll("[data-go]").forEach(b => {
     b.addEventListener("click",()=>navigate(b.dataset.go));
   });
 
-  const search=document.getElementById("search");
-  if(search) search.addEventListener("input",e=>{
-    const pos=e.target.selectionStart;
-    searchTerm=e.target.value;
-    render();
-    const next=document.getElementById("search");
-    next?.focus();
-    next?.setSelectionRange(pos,pos);
-  });
+  const search = document.getElementById("search");
 
-  document.querySelectorAll("[data-delete]").forEach(b=>{
-    b.addEventListener("click",async()=>{
-      if(!isAdmin)return;
-      const type=b.dataset.delete;
-      const index=Number(b.dataset.index);
-      const array=type==="game"?content.games:content.highlights;
-      if(!array[index])return;
-      if(!confirm(`Remove "${titleOf(array[index])}"?`))return;
+  if (search) {
+    search.addEventListener("input",e => {
+      const pos = e.target.selectionStart;
+      searchTerm = e.target.value;
+      render();
+
+      const next = document.getElementById("search");
+      next?.focus();
+      next?.setSelectionRange(pos,pos);
+    });
+  }
+
+  document.querySelectorAll("[data-delete]").forEach(b => {
+    b.addEventListener("click",async() => {
+      if (!isAdmin) return;
+
+      const type = b.dataset.delete;
+      const index = Number(b.dataset.index);
+      const array = type === "game" ? content.games : content.highlights;
+
+      if (!array[index]) return;
+      if (!confirm(`Remove "${titleOf(array[index])}"?`)) return;
+
       array.splice(index,1);
       await saveContent();
     });
   });
 
-  const login=document.getElementById("login-form");
-  if(login)login.addEventListener("submit",async e=>{
-    e.preventDefault();
-    const error=document.getElementById("login-error");
-    error.innerHTML="";
-    try{
-      await api("/api/login",{method:"POST",body:JSON.stringify({
-        password:document.getElementById("password").value
-      })});
-      isAdmin=true;
-      notify("Signed in successfully.","success");
-      render();
-    }catch(err){
-      error.innerHTML=`<div class="notice error">${esc(err.message||"Login failed.")}</div>`;
-    }
-  });
+  const login = document.getElementById("login-form");
 
-  const logout=document.getElementById("logout");
-  if(logout)logout.addEventListener("click",async()=>{
-    try{
-      await api("/api/logout",{method:"POST"});
-      isAdmin=false;
-      navigate("home");
-      notify("Signed out.","success");
-    }catch(err){notify("Sign out failed: "+err.message,"error");}
-  });
+  if (login) {
+    login.addEventListener("submit",async e => {
+      e.preventDefault();
 
-  const gameForm=document.getElementById("game-form");
-  if(gameForm)gameForm.addEventListener("submit",async e=>{
-    e.preventDefault();
-    if(!isAdmin)return;
-    const videoUrl=document.getElementById("gv").value.trim();
-    if(videoUrl&&!videoInfo(videoUrl)){
-      notify("Use a valid HTTPS YouTube, Vimeo, or direct MP4/WebM/Ogg video URL.","error");return;
-    }
-    content.games.unshift({
-      id:makeId(),
-      title:document.getElementById("gt").value.trim(),
-      opponent:document.getElementById("go").value.trim(),
-      date:document.getElementById("gd").value,
-      season:document.getElementById("gs").value.trim(),
-      score:document.getElementById("gscore").value.trim(),
-      description:document.getElementById("gdesc").value.trim(),
-      videoUrl
+      const error = document.getElementById("login-error");
+      error.innerHTML = "";
+
+      try {
+        await api("/api/login",{
+          method:"POST",
+          body:JSON.stringify({
+            password:document.getElementById("password").value
+          })
+        });
+
+        isAdmin = true;
+        notify("Signed in successfully.","success");
+        render();
+      } catch(err) {
+        error.innerHTML = `<div class="notice error">${esc(err.message || "Login failed.")}</div>`;
+      }
     });
-    await saveContent();
-  });
+  }
 
-  const highlightForm=document.getElementById("highlight-form");
-  if(highlightForm)highlightForm.addEventListener("submit",async e=>{
-    e.preventDefault();
-    if(!isAdmin)return;
-    const videoUrl=document.getElementById("hv").value.trim();
-    if(!videoInfo(videoUrl)){
-      notify("Enter a valid HTTPS YouTube, Vimeo, or direct video URL.","error");return;
-    }
-    content.highlights.unshift({
-      id:makeId(),
-      title:document.getElementById("ht").value.trim(),
-      date:document.getElementById("hd").value,
-      description:document.getElementById("hdesc").value.trim(),
-      videoUrl
+  const logout = document.getElementById("logout");
+
+  if (logout) {
+    logout.addEventListener("click",async() => {
+      try {
+        await api("/api/logout",{method:"POST"});
+        isAdmin = false;
+        navigate("home");
+        notify("Signed out.","success");
+      } catch(err) {
+        notify("Sign out failed: " + err.message,"error");
+      }
     });
-    await saveContent();
-  });
+  }
+
+  const gameForm = document.getElementById("game-form");
+
+  if (gameForm) {
+    gameForm.addEventListener("submit",async e => {
+      e.preventDefault();
+      if (!isAdmin) return;
+
+      const videoUrl = document.getElementById("gv").value.trim();
+
+      if (videoUrl && !videoInfo(videoUrl)) {
+        notify("Use a valid HTTPS YouTube, Vimeo, or direct MP4/WebM/Ogg video URL.","error");
+        return;
+      }
+
+      content.games.unshift({
+        id:makeId(),
+        title:document.getElementById("gt").value.trim(),
+        opponent:document.getElementById("go").value.trim(),
+        date:document.getElementById("gd").value,
+        season:document.getElementById("gs").value.trim(),
+        score:document.getElementById("gscore").value.trim(),
+        description:document.getElementById("gdesc").value.trim(),
+        videoUrl
+      });
+
+      await saveContent();
+    });
+  }
+
+  const highlightForm = document.getElementById("highlight-form");
+
+  if (highlightForm) {
+    highlightForm.addEventListener("submit",async e => {
+      e.preventDefault();
+      if (!isAdmin) return;
+
+      const videoUrl = document.getElementById("hv").value.trim();
+
+      if (!videoInfo(videoUrl)) {
+        notify("Enter a valid HTTPS YouTube, Vimeo, or direct video URL.","error");
+        return;
+      }
+
+      content.highlights.unshift({
+        id:makeId(),
+        title:document.getElementById("ht").value.trim(),
+        date:document.getElementById("hd").value,
+        description:document.getElementById("hdesc").value.trim(),
+        videoUrl
+      });
+
+      await saveContent();
+    });
+  }
 }
 
-document.querySelectorAll("[data-page]").forEach(b=>{
+document.querySelectorAll("[data-page]").forEach(b => {
   b.addEventListener("click",()=>navigate(b.dataset.page));
 });
 
