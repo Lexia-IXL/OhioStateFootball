@@ -3,18 +3,22 @@ const express = require("express");
 const session = require("express-session");
 const fs = require("fs");
 const path = require("path");
+const crypto = require("crypto");
 
 const app = express();
 app.set("trust proxy", 1);
 
 const PORT = process.env.PORT || 3000;
 const ADMIN_PASSWORD = process.env.ADMIN_PASSWORD || "9393";
-const SESSION_SECRET = process.env.SESSION_SECRET || "change-this-secret-before-launch";
+const SESSION_SECRET =
+  process.env.SESSION_SECRET || "change-this-secret-before-launch";
 
 const DATA_DIR = process.env.DATA_DIR || path.join(__dirname, "data");
 const DATA_FILE = path.join(DATA_DIR, "content.json");
+const LIBRARY_FILE = path.join(__dirname, "data", "video-library.json");
+const IMPORT_MARKER = path.join(DATA_DIR, ".video-library-import-v1.done");
 
-app.use(express.json({ limit: "1mb" }));
+app.use(express.json({ limit: "2mb" }));
 app.use(express.urlencoded({ extended: false }));
 
 app.use(session({
@@ -35,6 +39,7 @@ function starterData() {
     games: [
       {
         id: "game-2024-1",
+        title: "Ohio State vs. Notre Dame — National Championship",
         season: "2024",
         opponent: "Notre Dame",
         date: "2025-01-20",
@@ -45,6 +50,7 @@ function starterData() {
       },
       {
         id: "game-2024-2",
+        title: "Ohio State vs. Texas — CFP Semifinal",
         season: "2024",
         opponent: "Texas",
         date: "2025-01-10",
@@ -82,8 +88,12 @@ function ensureData() {
 
 function readData() {
   ensureData();
+
   try {
-    return JSON.parse(fs.readFileSync(DATA_FILE, "utf8"));
+    const data = JSON.parse(fs.readFileSync(DATA_FILE, "utf8"));
+    if (!Array.isArray(data.games)) data.games = [];
+    if (!Array.isArray(data.highlights)) data.highlights = [];
+    return data;
   } catch {
     return starterData();
   }
@@ -91,14 +101,75 @@ function readData() {
 
 function writeData(data) {
   ensureData();
+
   const tempFile = DATA_FILE + ".tmp";
   fs.writeFileSync(tempFile, JSON.stringify(data, null, 2));
   fs.renameSync(tempFile, DATA_FILE);
 }
 
+function importLibraryOnce() {
+  ensureData();
+
+  if (fs.existsSync(IMPORT_MARKER)) return;
+
+  if (!fs.existsSync(LIBRARY_FILE)) {
+    console.warn("Video library file not found; skipping archive import.");
+    return;
+  }
+
+  try {
+    const library = JSON.parse(fs.readFileSync(LIBRARY_FILE, "utf8"));
+    const current = readData();
+
+    if (!Array.isArray(current.games)) current.games = [];
+    if (!Array.isArray(current.highlights)) current.highlights = [];
+
+    const gameIds = new Set(
+      current.games.map(item => String(item.id || ""))
+    );
+
+    const highlightIds = new Set(
+      current.highlights.map(item => String(item.id || ""))
+    );
+
+    const newGames = (
+      Array.isArray(library.games) ? library.games : []
+    ).filter(item =>
+      item && item.id && !gameIds.has(String(item.id))
+    );
+
+    const newHighlights = (
+      Array.isArray(library.highlights) ? library.highlights : []
+    ).filter(item =>
+      item && item.id && !highlightIds.has(String(item.id))
+    );
+
+    current.games = [...newGames, ...current.games];
+    current.highlights = [...newHighlights, ...current.highlights];
+
+    writeData(current);
+
+    fs.writeFileSync(IMPORT_MARKER, JSON.stringify({
+      importedAt: new Date().toISOString(),
+      games: newGames.length,
+      highlights: newHighlights.length
+    }, null, 2));
+
+    console.log(
+      `Imported ${newGames.length} games and ` +
+      `${newHighlights.length} highlights.`
+    );
+  } catch (error) {
+    console.error("Video library import failed:", error.message);
+  }
+}
+
 function requireAdmin(req, res, next) {
   if (req.session && req.session.isAdmin) return next();
-  return res.status(401).json({ error: "Please sign in as an administrator." });
+
+  return res.status(401).json({
+    error: "Please sign in as an administrator."
+  });
 }
 
 function cleanText(value, maxLength = 500) {
@@ -108,20 +179,34 @@ function cleanText(value, maxLength = 500) {
 
 function validVideoUrl(value) {
   if (!value) return "";
+
   try {
     const url = new URL(value);
+
     const allowed = [
       "youtube.com",
       "www.youtube.com",
+      "m.youtube.com",
       "youtu.be",
+      "www.youtu.be",
+      "youtube-nocookie.com",
       "www.youtube-nocookie.com",
       "vimeo.com",
       "www.vimeo.com",
       "player.vimeo.com"
     ];
-    if (url.protocol !== "https:" || !allowed.includes(url.hostname)) {
+
+    const directVideo = /\.(mp4|webm|ogg)$/i.test(url.pathname);
+
+    if (url.protocol !== "https:") return null;
+
+    if (
+      !allowed.includes(url.hostname.toLowerCase()) &&
+      !directVideo
+    ) {
       return null;
     }
+
     return url.href;
   } catch {
     return null;
@@ -130,25 +215,42 @@ function validVideoUrl(value) {
 
 app.get("/api/content", (req, res) => {
   const data = readData();
+
   res.set("Cache-Control", "no-store");
   res.json(data);
 });
 
 app.get("/api/session", (req, res) => {
-  res.json({ isAdmin: Boolean(req.session && req.session.isAdmin) });
+  res.json({
+    isAdmin: Boolean(req.session && req.session.isAdmin)
+  });
 });
 
 app.post("/api/login", (req, res) => {
   const password = cleanText(req.body.password, 200);
+
   if (password !== ADMIN_PASSWORD) {
-    return res.status(401).json({ error: "Incorrect password." });
+    return res.status(401).json({
+      error: "Incorrect password."
+    });
   }
 
-  req.session.regenerate((err) => {
-    if (err) return res.status(500).json({ error: "Could not start session." });
+  req.session.regenerate(err => {
+    if (err) {
+      return res.status(500).json({
+        error: "Could not start session."
+      });
+    }
+
     req.session.isAdmin = true;
-    req.session.save((saveErr) => {
-      if (saveErr) return res.status(500).json({ error: "Could not save session." });
+
+    req.session.save(saveErr => {
+      if (saveErr) {
+        return res.status(500).json({
+          error: "Could not save session."
+        });
+      }
+
       res.json({ success: true });
     });
   });
@@ -163,23 +265,44 @@ app.post("/api/logout", (req, res) => {
 
 app.put("/api/content", requireAdmin, (req, res) => {
   const incoming = req.body;
-  if (!incoming || !Array.isArray(incoming.games) || !Array.isArray(incoming.highlights)) {
-    return res.status(400).json({ error: "Games and highlights must be lists." });
+
+  if (
+    !incoming ||
+    !Array.isArray(incoming.games) ||
+    !Array.isArray(incoming.highlights)
+  ) {
+    return res.status(400).json({
+      error: "Games and highlights must be lists."
+    });
   }
 
-  if (incoming.games.length > 300 || incoming.highlights.length > 500) {
-    return res.status(400).json({ error: "Too many entries." });
+  if (
+    incoming.games.length > 300 ||
+    incoming.highlights.length > 500
+  ) {
+    return res.status(400).json({
+      error: "Too many entries."
+    });
   }
 
   const games = [];
+
   for (const item of incoming.games) {
     if (!item || typeof item !== "object") continue;
-    const videoUrl = validVideoUrl(cleanText(item.videoUrl, 1000));
+
+    const videoUrl = validVideoUrl(
+      cleanText(item.videoUrl, 1000)
+    );
+
     if (videoUrl === null) {
-      return res.status(400).json({ error: "Videos must use an HTTPS YouTube or Vimeo link." });
+      return res.status(400).json({
+        error: "Videos must use an HTTPS YouTube, Vimeo, or direct video link."
+      });
     }
+
     games.push({
-      id: cleanText(item.id, 100) || require("crypto").randomUUID(),
+      id: cleanText(item.id, 100) || crypto.randomUUID(),
+      title: cleanText(item.title, 200),
       season: cleanText(item.season, 20),
       opponent: cleanText(item.opponent, 100),
       date: cleanText(item.date, 20),
@@ -191,23 +314,37 @@ app.put("/api/content", requireAdmin, (req, res) => {
   }
 
   const highlights = [];
+
   for (const item of incoming.highlights) {
     if (!item || typeof item !== "object") continue;
-    const videoUrl = validVideoUrl(cleanText(item.videoUrl, 1000));
+
+    const videoUrl = validVideoUrl(
+      cleanText(item.videoUrl, 1000)
+    );
+
     if (videoUrl === null) {
-      return res.status(400).json({ error: "Videos must use an HTTPS YouTube or Vimeo link." });
+      return res.status(400).json({
+        error: "Videos must use an HTTPS YouTube, Vimeo, or direct video link."
+      });
     }
+
     highlights.push({
-      id: cleanText(item.id, 100) || require("crypto").randomUUID(),
-      title: cleanText(item.title, 150),
+      id: cleanText(item.id, 100) || crypto.randomUUID(),
+      title: cleanText(item.title, 200),
       season: cleanText(item.season, 20),
+      date: cleanText(item.date, 20),
       description: cleanText(item.description, 1000),
       videoUrl
     });
   }
 
   writeData({ games, highlights });
-  res.json({ success: true });
+
+  res.json({
+    success: true,
+    games: games.length,
+    highlights: highlights.length
+  });
 });
 
 app.use(express.static(path.join(__dirname, "public")));
@@ -215,6 +352,9 @@ app.use(express.static(path.join(__dirname, "public")));
 app.get("*", (req, res) => {
   res.sendFile(path.join(__dirname, "public", "index.html"));
 });
+
+ensureData();
+importLibraryOnce();
 
 app.listen(PORT, "0.0.0.0", () => {
   console.log(`Buckeye Vault running on port ${PORT}`);
