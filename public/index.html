@@ -25,7 +25,7 @@ body{
   -webkit-font-smoothing:antialiased
 }
 button,input,textarea,select{font:inherit}
-button,a{-webkit-tap-highlight-color:transparent}
+button,a{ -webkit-tap-highlight-color:transparent }
 a{color:inherit}
 button{cursor:pointer}
 header{
@@ -201,6 +201,8 @@ main{max-width:1180px;margin:auto;padding:27px 24px 70px}
 .notice.success{border-color:#347647;color:#b6f3c4}
 .login-box{max-width:410px;margin:45px auto}
 .login-box .admin-panel{padding:26px}
+footer{border-top:1px solid #292929;padding:27px 20px;text-align:center;color:#777;font-size:11px;line-height:1.8}
+footer strong{color:#aaa}
 .hidden{display:none!important}
 .loading{padding:50px;text-align:center;color:#999}
 @media(max-width:850px){
@@ -351,92 +353,19 @@ async function saveContent() {
   }
 }
 
-/* SORTING: newest season first, then newest date within each season. */
-function titleOf(item, fallback="Ohio State Football") {
-  return item.title || item.name || item.opponent || fallback;
-}
-
-function getYear(item) {
-  const season = String(item.season || "");
-  const title = String(item.title || item.name || "");
-  const date = String(item.date || "");
-
-  const match =
-    season.match(/\b(18|19|20)\d{2}\b/) ||
-    title.match(/\b(18|19|20)\d{2}\b/) ||
-    date.match(/\b(18|19|20)\d{2}\b/);
-
-  return match ? Number(match[0]) : 0;
-}
-
-function getDate(item) {
-  const value = String(item.date || "");
-  const timestamp = Date.parse(value);
-  return Number.isNaN(timestamp) ? 0 : timestamp;
-}
-
-function filter(items) {
-  const filtered = items.filter(item => {
-    if (!searchTerm) return true;
-
-    return [
-      item.title,
-      item.name,
-      item.opponent,
-      item.description,
-      item.summary,
-      item.season,
-      item.date,
-      item.score
-    ].join(" ").toLowerCase().includes(searchTerm.toLowerCase());
-  });
-
-  return filtered.sort((a,b) =>
-    getYear(b) - getYear(a) ||
-    getDate(b) - getDate(a) ||
-    titleOf(a).localeCompare(titleOf(b))
-  );
-}
-
-function validVideoUrl(value) {
-  if (!value) return "";
-
-  try {
-    const url = new URL(value);
-    if (url.protocol !== "https:") return null;
-
-    const host = url.hostname.toLowerCase();
-    const path = url.pathname;
-
-    if ([
-      "youtube.com","www.youtube.com","m.youtube.com",
-      "youtube-nocookie.com","www.youtube-nocookie.com",
-      "youtu.be","www.youtu.be",
-      "vimeo.com","www.vimeo.com","player.vimeo.com"
-    ].includes(host)) return url.href;
-
-    if (/\.(mp4|webm|ogg)$/i.test(path)) return url.href;
-
-    return null;
-  } catch {
-    return null;
-  }
-}
-
 function videoInfo(raw) {
-  const valid = validVideoUrl(raw);
-  if (!valid) return null;
+  if (typeof raw !== "string" || !raw.trim()) return null;
 
   try {
-    const u = new URL(valid);
+    const u = new URL(raw.trim());
+    if (u.protocol !== "https:") return null;
+
     const host = u.hostname.toLowerCase();
     const path = u.pathname;
     let id = "";
 
-    if ([
-      "youtube.com","www.youtube.com","m.youtube.com",
-      "youtube-nocookie.com","www.youtube-nocookie.com"
-    ].includes(host)) {
+    if (["youtube.com","www.youtube.com","m.youtube.com",
+         "youtube-nocookie.com","www.youtube-nocookie.com"].includes(host)) {
       id = u.searchParams.get("v") ||
         path.match(/^\/(?:embed|shorts|live)\/([^/?]+)/)?.[1] || "";
 
@@ -461,21 +390,10 @@ function videoInfo(raw) {
       return {type:"file",src:u.href};
     }
 
-    return null;
+    return {type:"external",src:u.href};
   } catch {
     return null;
   }
-}
-
-function urlOf(item) {
-  return item.videoUrl || item.videoURL || item.video || item.url || "";
-}
-
-function dateOf(value) {
-  if (!value) return "";
-  const d = new Date(String(value).length === 10 ? value+"T12:00:00" : value);
-  return Number.isNaN(d.getTime()) ? String(value) :
-    d.toLocaleDateString(undefined,{month:"short",day:"numeric",year:"numeric"});
 }
 
 function player(raw, title) {
@@ -511,6 +429,28 @@ function player(raw, title) {
   </div></div>`;
 }
 
+function titleOf(item, fallback="Ohio State Football") {
+  return item.title || item.name || item.opponent || fallback;
+}
+
+function urlOf(item) {
+  return item.videoUrl || item.videoURL || item.video || item.url || "";
+}
+
+function dateOf(value) {
+  if (!value) return "";
+  const d = new Date(String(value).length === 10 ? value+"T12:00:00" : value);
+  return Number.isNaN(d.getTime()) ? String(value) :
+    d.toLocaleDateString(undefined,{month:"short",day:"numeric",year:"numeric"});
+}
+
+function filter(items) {
+  if (!searchTerm) return items;
+  return items.filter(x => [
+    x.title,x.name,x.opponent,x.description,x.summary,x.season,x.date,x.score
+  ].join(" ").toLowerCase().includes(searchTerm.toLowerCase()));
+}
+
 function emptyState(title, message) {
   return `<div class="empty"><div class="empty-icon">🏈</div>
     <h3>${esc(title)}</h3><p>${esc(message)}</p></div>`;
@@ -520,7 +460,10 @@ function card(item, type, index) {
   const title = titleOf(item);
   const date = dateOf(item.date);
   const description = item.description || item.summary || "";
-  const tag = type === "game" ? "Full Game" : "Highlight";
+  const descLower = String(description).toLowerCase();
+  const tag = type === "game"
+    ? ((descLower.includes("classic") || descLower.includes("condensed")) ? "Classic Replay" : "Full Game")
+    : "Video / Feature";
 
   return `<article class="card">
     ${player(urlOf(item),title)}
@@ -574,7 +517,7 @@ function homePage() {
 
   <section class="section">
     <div class="section-head">
-      <div><h2 class="section-title">Games</h2><p class="section-subtitle">Newest seasons first.</p></div>
+      <div><h2 class="section-title">Games</h2><p class="section-subtitle">Relive the matchups.</p></div>
       <button class="text-link" data-go="games">Browse all games →</button>
     </div>
     <div class="grid">${games.length
@@ -584,7 +527,7 @@ function homePage() {
 
   <section class="section">
     <div class="section-head">
-      <div><h2 class="section-title">Highlights</h2><p class="section-subtitle">Newest seasons first.</p></div>
+      <div><h2 class="section-title">Highlights</h2><p class="section-subtitle">The plays worth watching again.</p></div>
       <button class="text-link" data-go="highlights">Browse all highlights →</button>
     </div>
     <div class="grid">${highlights.length
@@ -598,14 +541,14 @@ function listPage(type) {
   const items = isGame ? filter(content.games) : filter(content.highlights);
   const heading = isGame ? "Games" : "Highlights";
   const subtitle = isGame
-    ? "Browse games by season, newest first."
-    : "Browse highlights by season, newest first.";
+    ? "Browse the Ohio State football game collection."
+    : "Watch the biggest plays and favorite moments.";
 
   return `<div class="page-heading">
     <h1>${heading}</h1><p>${subtitle}</p>
   </div>
   <div class="section-head">
-    <span class="section-subtitle">${items.length} item${items.length===1?"":"s"} · Newest season first</span>
+    <span class="section-subtitle">${items.length} item${items.length===1?"":"s"}</span>
     <input class="search" id="search" placeholder="Search ${heading.toLowerCase()}…" value="${esc(searchTerm)}">
   </div>
   <div class="grid">${items.length
@@ -633,14 +576,14 @@ function adminPage() {
     <p>Add videos, manage games, and maintain your collection.</p></div>
 
     <section class="admin-panel"><h2>Add a game</h2>
-      <p>Paste a YouTube or Vimeo link to embed a player. Direct MP4 links are supported too.</p>
+      <p>Paste an official video-page URL, Vimeo link, or direct MP4. Official source pages open in a new tab when they cannot be embedded.</p>
       <form id="game-form"><div class="form-grid">
         <div class="field"><label for="gt">Game title *</label><input id="gt" required placeholder="Ohio State vs. Michigan"></div>
         <div class="field"><label for="go">Opponent</label><input id="go" placeholder="Michigan"></div>
         <div class="field"><label for="gd">Game date</label><input id="gd" type="date"></div>
         <div class="field"><label for="gs">Season</label><input id="gs" placeholder="2026"></div>
         <div class="field"><label for="gscore">Score</label><input id="gscore" placeholder="31–20"></div>
-        <div class="field"><label for="gv">Video URL</label><input id="gv" type="url" placeholder="https://www.youtube.com/watch?v=..."></div>
+        <div class="field"><label for="gv">Video URL</label><input id="gv" type="url" placeholder="https://video.wosu.org/video/... or official source page"></div>
         <div class="field full"><label for="gdesc">Description</label><textarea id="gdesc" placeholder="Game recap or notes…"></textarea></div>
       </div><div class="form-actions"><button class="btn" type="submit">＋ Add game</button></div></form>
     </section>
@@ -649,25 +592,21 @@ function adminPage() {
       <form id="highlight-form"><div class="form-grid">
         <div class="field"><label for="ht">Highlight title *</label><input id="ht" required placeholder="Game-winning touchdown"></div>
         <div class="field"><label for="hd">Date</label><input id="hd" type="date"></div>
-        <div class="field full"><label for="hv">Video URL *</label><input id="hv" type="url" required placeholder="https://www.youtube.com/watch?v=..."></div>
+        <div class="field full"><label for="hv">Video URL *</label><input id="hv" type="url" required placeholder="https://video.wosu.org/video/... or official source page"></div>
         <div class="field full"><label for="hdesc">Description</label><textarea id="hdesc" placeholder="Describe the play…"></textarea></div>
       </div><div class="form-actions"><button class="btn" type="submit">＋ Add highlight</button></div></form>
     </section>
 
     <section class="admin-panel"><h2>Manage games (${content.games.length})</h2>
-      <div class="admin-list">${content.games.length ? filter(content.games).map(x=>{
-        const i=content.games.indexOf(x);
-        return `<div class="admin-item"><div><strong>${esc(titleOf(x))}</strong><small>${esc(x.season || getYear(x) || "Season unknown")} · ${esc(dateOf(x.date))}</small></div>
-        <button class="btn danger small" data-delete="game" data-index="${i}">Remove</button></div>`;
-      }).join(""):"<p>No games added yet.</p>"}</div>
+      <div class="admin-list">${content.games.length ? content.games.map((x,i)=>`
+        <div class="admin-item"><div><strong>${esc(titleOf(x))}</strong><small>${esc(dateOf(x.date))}</small></div>
+        <button class="btn danger small" data-delete="game" data-index="${i}">Remove</button></div>`).join(""):"<p>No games added yet.</p>"}</div>
     </section>
 
     <section class="admin-panel"><h2>Manage highlights (${content.highlights.length})</h2>
-      <div class="admin-list">${content.highlights.length ? filter(content.highlights).map(x=>{
-        const i=content.highlights.indexOf(x);
-        return `<div class="admin-item"><div><strong>${esc(titleOf(x))}</strong><small>${esc(x.season || getYear(x) || "Season unknown")} · ${esc(dateOf(x.date))}</small></div>
-        <button class="btn danger small" data-delete="highlight" data-index="${i}">Remove</button></div>`;
-      }).join(""):"<p>No highlights added yet.</p>"}</div>
+      <div class="admin-list">${content.highlights.length ? content.highlights.map((x,i)=>`
+        <div class="admin-item"><div><strong>${esc(titleOf(x))}</strong><small>${esc(dateOf(x.date))}</small></div>
+        <button class="btn danger small" data-delete="highlight" data-index="${i}">Remove</button></div>`).join(""):"<p>No highlights added yet.</p>"}</div>
     </section>
     <button class="btn secondary" id="logout">Sign out</button>`;
 }
@@ -762,14 +701,11 @@ function bindEvents() {
   if(gameForm)gameForm.addEventListener("submit",async e=>{
     e.preventDefault();
     if(!isAdmin)return;
-
     const videoUrl=document.getElementById("gv").value.trim();
     if(videoUrl&&!videoInfo(videoUrl)){
-      notify("Use a valid HTTPS YouTube, Vimeo, or direct MP4/WebM/Ogg video URL.","error");
-      return;
+      notify("Use a valid HTTPS YouTube, Vimeo, or direct MP4/WebM/Ogg video URL.","error");return;
     }
-
-    content.games.push({
+    content.games.unshift({
       id:makeId(),
       title:document.getElementById("gt").value.trim(),
       opponent:document.getElementById("go").value.trim(),
@@ -779,7 +715,6 @@ function bindEvents() {
       description:document.getElementById("gdesc").value.trim(),
       videoUrl
     });
-
     await saveContent();
   });
 
@@ -787,21 +722,17 @@ function bindEvents() {
   if(highlightForm)highlightForm.addEventListener("submit",async e=>{
     e.preventDefault();
     if(!isAdmin)return;
-
     const videoUrl=document.getElementById("hv").value.trim();
     if(!videoInfo(videoUrl)){
-      notify("Enter a valid HTTPS YouTube, Vimeo, or direct video URL.","error");
-      return;
+      notify("Enter a valid HTTPS YouTube, Vimeo, or direct video URL.","error");return;
     }
-
-    content.highlights.push({
+    content.highlights.unshift({
       id:makeId(),
       title:document.getElementById("ht").value.trim(),
       date:document.getElementById("hd").value,
       description:document.getElementById("hdesc").value.trim(),
       videoUrl
     });
-
     await saveContent();
   });
 }
